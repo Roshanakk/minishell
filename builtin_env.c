@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:16:36 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/04 14:19:11 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/04 15:41:06 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,13 @@ int main(int argc, char **argv, char **envp)
 		i = -1;
 		while (envp[++i])
 		{
+			if (!ft_strncmp(envp[i], "PWD", 3))
+			{
+				tmp_0 = ft_strjoin(env_buffer, "PWD=");
+				free(env_buffer);
+				tmp = ft_strjoin(tmp_0, getcwd(NULL, 1024));
+				free(tmp_0);				
+			}
 			if (!envp[i + 1])
 			{
 				tmp_0 = ft_strjoin(env_buffer, "_=");
