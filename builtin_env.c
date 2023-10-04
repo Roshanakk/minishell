@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:16:36 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/04 13:51:03 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:19:11 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int main(int argc, char **argv, char **envp)
 	int		i;
 	char *tmp_0;
 	char *tmp;
+	char *path;
 
 	env_buffer = ft_strdup("\0");
 	if (!ft_strcmp(argv[1], "env"))
@@ -74,7 +75,9 @@ int main(int argc, char **argv, char **envp)
 			{
 				tmp_0 = ft_strjoin(env_buffer, "_=");
 				free(env_buffer);
-				tmp = ft_strjoin(tmp_0, get_path(envp, "env"));
+				path = get_path(envp, "env");
+				tmp = ft_strjoin(tmp_0, path);
+				free(path);
 				free(tmp_0);		
 			}
 			else
@@ -86,8 +89,8 @@ int main(int argc, char **argv, char **envp)
 			free(tmp);
 		}
 		printf("%s", env_buffer);
-		free(env_buffer);
 	}
+	free(env_buffer);
 	return (0);
 }
 
