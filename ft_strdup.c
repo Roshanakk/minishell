@@ -1,38 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 10:16:36 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/04 11:17:40 by rraffi-k         ###   ########.fr       */
+/*   Created: 2022/11/14 15:20:14 by rraffi-k          #+#    #+#             */
+/*   Updated: 2023/10/04 10:29:51 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "testshell.h"
 
-int main(int argc, char **argv, char **envp)
+char	*ft_strdup(const char *s)
 {
-	char	*env_buffer;
-	int		i;
-	char *tmp;
+	size_t		i;
+	char		*str;
+	char		*s_bis;
 
-	env_buffer = ft_strdup("\0");
-	if (ft_strcmp(argv[1], "env") == 0)
+	i = 0;
+	s_bis = (char *)s;
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!str || !s)
+		return (0);
+	while (s_bis[i])
 	{
-		i = 0;
-		while (envp[i])
-		{
-			
-			tmp = ft_strjoin(env_buffer, envp[i]);
-			free(env_buffer);
-			env_buffer = ft_strjoin(tmp, "\n");
-			free(tmp);
-			i++;
-		}
-		printf("%s", env_buffer);
-		free(env_buffer);
+		str[i] = s_bis[i];
+		i++;
 	}
+	str[i] = '\0';
+	return (str);
+}
+
+/*
+int main()
+{
+	char string[] = "Yooooooooooooo";
+	char src1[100] = "AuRevoir";
+	printf("%s\n", ft_strdup(string));
 	return (0);
 }
+*/
