@@ -4,6 +4,7 @@ SRC = main.c \
 	create_structs.c \
 	free.c \
 	safe_fd_functions.c \
+	builtin_env.c \
 
 OBJ = ${SRC:.c=.o}
 

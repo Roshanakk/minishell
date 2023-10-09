@@ -6,7 +6,15 @@ SRC	= ft_printf_utils.c \
 	ft_putnbr.c \
 	ft_split.c \
 	ft_strjoin.c \
-	ft_strdup.c
+	ft_strdup.c \
+	ft_strcmp.c \
+	ft_lstnew.c \
+	ft_lstadd_front.c \
+	ft_lstadd_back.c \
+	ft_lstsize.c \
+	ft_lstlast.c \
+	ft_lstdelone.c \
+	ft_lstclear.c \
 
 OBJS = ${SRC:.c=.o}
 
