@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 14:44:03 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/04 10:38:17 by rraffi-k         ###   ########.fr       */
+/*   Created: 2023/09/28 11:24:37 by rraffi-k          #+#    #+#             */
+/*   Updated: 2023/09/28 11:24:57 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "testshell.h"
+#include "libft.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	size_t	i;
+	unsigned int	i;
 
 	i = 0;
-	while (s[i])
+	while (s1[i] && s2[i] && (s1[i] == s2[i]))
 		i++;
-	return (i);
+	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
 }

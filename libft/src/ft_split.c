@@ -6,11 +6,16 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:02:16 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/04 11:51:11 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:38:01 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "testshell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 size_t	ft_cmpt(char const *s, char c)
 {

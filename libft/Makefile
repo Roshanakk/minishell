@@ -1,0 +1,45 @@
+NAME = libft.a 
+
+SRC	= ft_printf_utils.c \
+	ft_printf.c \
+	ft_putnbr_base.c \
+	ft_putnbr.c \
+	ft_split.c \
+	ft_strjoin.c \
+	ft_strdup.c
+
+OBJS = ${SRC:.c=.o}
+
+SRC_PATH = ./src
+OBJ_PATH = ./obj
+SRC_FILES = $(addprefix $(SRC_PATH)/,$(SRC))
+OBJ_FILES = $(addprefix $(OBJ_PATH)/,$(OBJS))
+
+CC = cc
+
+CFLAGS = -Wall -Wextra -Werror
+
+all : obj ${NAME}
+
+obj :
+	mkdir -p $(OBJ_PATH)
+
+${NAME}: $(OBJ_FILES)
+	ar rc ${NAME} ${OBJ_FILES}
+	ranlib ${NAME}
+
+$(OBJ_PATH)/%.o:$(SRC_PATH)/%.c
+	${CC} ${CFLAGS} -c $< -o $@
+
+%.o : %.c
+	${CC} ${CFLAGS} -o $@ -c $<
+
+clean : 
+	rm -rf ${OBJ_PATH}
+
+fclean : clean
+		rm -f ${NAME} 
+
+re : fclean all
+
+.PHONY: re fclean clean bonus all
