@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:30:59 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/09 13:38:54 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/10 12:14:48 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_lstclear(t_list **lst)
 	while (curr)
 	{
 		next = curr->next;
-		// free(curr->content);
+		free(curr->content);
 		free(curr);
 		curr = next;
 	}

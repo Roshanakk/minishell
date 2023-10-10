@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:16:36 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/09 14:15:59 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/10 12:26:48 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,36 +76,27 @@ char *get_path(char **envp, char *cmd)
 // 	return (str);
 // }
 
-t_list	*create_envp_lst(char **envp)
+void	create_envp_lst(char **envp, t_list **envp_lst)
 {
-	t_list	*envp_lst;
 	int		i;
-	char *tmp_0;
-	char *tmp;
-	char *path;
+	char 	*envp_i;
+	char 	*path;
+	char	*tmp1;
+	char	*tmp2;
 
-	envp_lst = ft_lstnew(envp[0], 0);
+	*envp_lst = ft_lstnew(ft_strdup(envp[0]), 0);
 	i = 0;
 	while (envp[++i])
 	{
-		// if (!ft_strncmp(envp[i], "PWD", 3))
-		// {
-		// 	tmp_0 = ft_strjoin(env_buffer, "PWD=");
-		// 	free(env_buffer);
-		// 	tmp = ft_strjoin(tmp_0, getcwd(NULL, 1024));
-		// 	free(tmp_0);				
-		// }
 		if (!envp[i + 1])
 		{
-			tmp = get_path(envp, "env");
-			path = ft_strjoin("_=", tmp);
-			free(tmp);
-			ft_lstadd_back(&envp_lst, ft_lstnew(path, i));
-		}
-		else
-			ft_lstadd_back(&envp_lst, ft_lstnew(envp[i], i));
+			path = get_path(envp, "env");
+			tmp1 = ft_strjoin(tmp_0, path);
+			free(path);
+			free(tmp_0);		
+		}		
+		ft_lstadd_back(envp_lst, ft_lstnew(ft_strdup(envp[i]), i));
 	}
-	return (envp_lst);
 }
 
 int main(int argc, char **argv, char **envp)
@@ -113,16 +104,16 @@ int main(int argc, char **argv, char **envp)
 	t_list	*envp_lst;
 
 	// if (!ft_strcmp(argv[1], "env"))
-		envp_lst = create_envp_lst(envp);
+		// envp_lst = create_envp_lst(envp);
+		create_envp_lst(argv, &envp_lst);
 	int i = 0;
 	t_list *tmp;
 	tmp = envp_lst;
 	while (tmp)
 	{
 		printf("%s\n", tmp->content);
-		if (!tmp->next)
-			free(tmp->content);
-		tmp= tmp->next;
+		// free(tmp->content);
+		tmp = tmp->next;
 	}
 	ft_lstclear(&envp_lst);
 	// free(envp_lst);
