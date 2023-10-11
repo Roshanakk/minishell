@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:20:34 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/10 11:55:20 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:23:36 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 #include <sys/wait.h>
 
 typedef struct s_envp {
-	t_list	*lst;
-	char	**tab;
+	t_list	*lst;			// on copie envp dans une liste chainee
+	char	**tab;			// on convertit en tab pour envoyer a execve
 } t_envp;
 
 typedef struct s_cmd_items {
