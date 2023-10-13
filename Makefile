@@ -5,6 +5,7 @@ SRC = main.c \
 	free.c \
 	safe_fd_functions.c \
 	builtin_env.c \
+	builtin_echo.c \
 
 OBJ = ${SRC:.c=.o}
 

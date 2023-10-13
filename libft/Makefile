@@ -15,6 +15,8 @@ SRC	= ft_printf_utils.c \
 	ft_lstlast.c \
 	ft_lstdelone.c \
 	ft_lstclear.c \
+	ft_putchar_fd.c \
+	ft_putstr_fd.c \
 
 OBJS = ${SRC:.c=.o}
 
