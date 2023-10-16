@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:20:34 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/10 13:23:36 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/16 11:35:33 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 #include "ft_printf.h"
 #include <sys/types.h>
 #include <sys/wait.h>
+
+// NOTES //
+// Pour le moment, 2 choses a free : lst et tab de ma structure envp ci-dessous //
 
 typedef struct s_envp {
 	t_list	*lst;			// on copie envp dans une liste chainee

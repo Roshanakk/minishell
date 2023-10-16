@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 12:10:38 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/09/22 15:22:42 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/16 11:37:46 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	close_and_free(t_fds_struct *fds, int flag)
 
 int	ft_free_cmd_items(t_cmd_items **cmd_items)
 {
-	ft_free_double_char((*cmd_items)->cmd, ft_cmpt((*cmd_items)->arg, ' '));
+	ft_free_array((*cmd_items)->cmd, ft_cmpt((*cmd_items)->arg, ' '));
 	free((*cmd_items)->arg);
 	free((*cmd_items)->path);
 	free(*cmd_items);

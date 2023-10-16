@@ -6,6 +6,7 @@ SRC = main.c \
 	safe_fd_functions.c \
 	builtin_env.c \
 	builtin_echo.c \
+	builtin_export.c \
 
 OBJ = ${SRC:.c=.o}
 

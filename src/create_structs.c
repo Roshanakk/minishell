@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 12:08:15 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/09/21 17:40:15 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/16 11:37:46 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	create_cmd_items(t_cmd_items **cmd_items, char *argv_cmd, char **argv)
 	(*cmd_items)->path = ft_strjoin("/usr/bin/", (*cmd_items)->cmd[0]);
 	if (!((*cmd_items)->path))
 	{
-		ft_free_double_char((*cmd_items)->cmd, ft_cmpt(argv[2], ' '));	
+		ft_free_array((*cmd_items)->cmd, ft_cmpt(argv[2], ' '));	
 		free((*cmd_items)->arg);
 		free(*cmd_items);
 		return (EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:16:36 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/11 13:52:06 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/16 11:37:46 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ char *get_path(char **envp, char *cmd)
 			return (NULL);
 		free(path_part);
 		if (access(path_exec, F_OK) == 0)
-			return (ft_free_double_char(all_paths, ft_cmpt(getenv("PATH"), ':')), path_exec);
+			return (ft_free_array(all_paths, ft_cmpt(getenv("PATH"), ':')), path_exec);
 		free(path_exec);
 	}
-	ft_free_double_char(all_paths, ft_cmpt(getenv("PATH"), ':'));
+	ft_free_array(all_paths, ft_cmpt(getenv("PATH"), ':'));
 	return (NULL);
 }
 
@@ -105,7 +105,7 @@ int	convert_env_to_tab(t_envp *env)
 // 		printf("%s\n", env.tab[i]);
 // 		i++;
 // 	}
-// 	ft_free_double_char(env.tab, ft_lstsize(env.lst) - 1);
+// 	ft_free_array(env.tab, ft_lstsize(env.lst) - 1);
 // 	ft_lstclear(&(env.lst));
 // 	return (0);
 	

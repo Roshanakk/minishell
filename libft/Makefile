@@ -17,6 +17,7 @@ SRC	= ft_printf_utils.c \
 	ft_lstclear.c \
 	ft_putchar_fd.c \
 	ft_putstr_fd.c \
+	ft_array_size.c \
 
 OBJS = ${SRC:.c=.o}
 
