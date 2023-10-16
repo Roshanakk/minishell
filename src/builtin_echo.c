@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:55:03 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/13 11:47:29 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/16 14:24:29 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	run_echo(char **args)
 	n_option = i > 1 ? 1 : 0;
 	while (args[i])
 	{
+////////////////////////A FAIRE : VAR D'ENV//////////////////////////
 		ft_putstr_fd(args[i], 1);
 		i++;
 		if (args[i])
