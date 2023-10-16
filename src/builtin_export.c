@@ -6,31 +6,29 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 11:04:58 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/16 14:16:48 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/16 14:19:11 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-
-char **dup_array(char **array)
-{
-	char	**dup;
-	int		i;
-
-	dup = malloc(sizeof(char *) * ft_array_size(array));
-	if (!dup)
-		return (NULL);
-	i = 0;
-	while (i < ft_array_size(array))
-	{
-		dup[i] = ft_strdup(array[i]);
-		if (!dup[i])
-			return (ft_free_array(dup, i));
-		i++;
-	}
-	return (dup);
-}
+// char **dup_array(char **array)
+// {
+// 	char	**dup;
+// 	int		i;
+// 	dup = malloc(sizeof(char *) * ft_array_size(array));
+// 	if (!dup)
+// 		return (NULL);
+// 	i = 0;
+// 	while (i < ft_array_size(array))
+// 	{
+// 		dup[i] = ft_strdup(array[i]);
+// 		if (!dup[i])
+// 			return (ft_free_array(dup, i));
+// 		i++;
+// 	}
+// 	return (dup);
+// }
 
 void	ft_swap(char **a, char **b)
 {
@@ -40,7 +38,6 @@ void	ft_swap(char **a, char **b)
 	*a = *b;
 	*b = a1;
 }
-
 
 //que faire de la derniere variable _= ?
 void	print_export(char **dup_env)
@@ -94,17 +91,17 @@ void	sort_and_print(char **env_tab)
 	print_export(dup_env);
 }
 
-int run_export(char **args)
+int run_export(char **args, t_envp *env)
 {
 	int	i;
 	
-	// if (!args[1])
-	// {
-		sort_and_print(args);
+	if (!args[1])
+	{
+		sort_and_print(env->tab);
 		return (1);
-	// }
+	}
 	i = 0;
-
+	
 	/////////////////////////
 	/////////////////////////
 	/////////////////////////
@@ -115,7 +112,7 @@ int main(int argc, char **argv, char **env)
 {
 	// t_envp *env;
 
-	run_export(env);
+	// run_export(env);
 	// sort(new_argv);
 	// int i = 0;
 	// while (new_argv[i])
