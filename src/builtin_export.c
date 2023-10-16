@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 11:04:58 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/16 14:19:11 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/16 15:18:07 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,24 @@ void	sort_and_print(char **env_tab)
 	print_export(dup_env);
 }
 
+int	check_valid_identifier(char *str)
+{
+	int	i;
+
+	if (!str || !str[0] || (!ft_isalpha(str[0]) && str[0] != '_'))
+		return (0);
+	i = 1;
+	while (str[i])
+	{
+		if (!ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+
+
 int run_export(char **args, t_envp *env)
 {
 	int	i;
@@ -101,7 +119,17 @@ int run_export(char **args, t_envp *env)
 		return (1);
 	}
 	i = 0;
-	
+	while (args[i])
+	{
+		if (!check_valid_identifier(args[i]))
+		{
+			ft_putstr_fd("minishell: export: `", 1);
+			ft_putstr_fd(args[i], 1);
+			ft_putstr_fd("`: not a valid identifier\n", 1);
+		}
+		i++;
+		add_to_env(env, args[i]); //<<<<<<<<<<<<<<<<<<====
+	}
 	/////////////////////////
 	/////////////////////////
 	/////////////////////////
@@ -110,9 +138,10 @@ int run_export(char **args, t_envp *env)
 
 int main(int argc, char **argv, char **env)
 {
+	printf("%d\n", check_valid_identifier(argv[1]));
 	// t_envp *env;
 
-	// run_export(env);
+	// run_export(argv);
 	// sort(new_argv);
 	// int i = 0;
 	// while (new_argv[i])
