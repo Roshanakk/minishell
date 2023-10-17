@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:16:36 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/17 11:14:00 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/17 12:13:20 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,21 @@ int	create_env_lst(char **envp, t_envp *env)
 	i = 0;
 	envp_i = ft_strdup(envp[i]);
 	if (!envp_i)
-		return (0);
+		return (EXIT_FAILURE);
 	env->lst = ft_lstnew(envp_i);
 	if (!env->lst)
-		return (0);
+		return (EXIT_FAILURE);
 	while (envp[++i])
 	{
 		envp_i = ft_strdup(envp[i]);
 		if (!envp_i)
-			return (0);
+			return (EXIT_FAILURE);
 		new_node = ft_lstnew(envp_i);
 		if (!new_node)
-			return (0);		
+			return (EXIT_FAILURE);		
 		ft_lstadd_back(&(env->lst), new_node);
 	}
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
 //A APPELER POUR MAJ (POUR CHAQUE MODIF DE ENV)

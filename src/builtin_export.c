@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 11:04:58 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/17 11:58:00 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/17 14:26:32 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,59 +86,121 @@ t_list	*var_node_exists(t_list *lst, char *var_and_value)
 	tmp = lst;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->content, var_and_value))
+		if (!ft_strcmp(tmp->content, var_and_value))
 			return (tmp);
 		tmp = tmp->next;
 	}
 	return (NULL);
 }
 
-void	add_to_env(t_envp *env, char *var_and_value)
-{
-	int	i;
-	t_list *var_exists;
-	var_exists = var_node_exists(env->lst, var_and_value);
-	i = 0;
-	//si la var n'est pas deja dans l'env
-		//on lst_addback dans la liste chainee
-	//sinon
-		//si concatenate
-			//on strjoin la partie apres le '='
-		//sinon
-			//on free et set a NULL la var
-			//on met la nouvelle valeur
-	//free env->tab et reappeler conv_env_to_tab ?
-}
+// int	add_to_env(t_envp *env, char *var_and_value, int concatenate)
+// {
+// 	int	i;
+// 	t_list *var_exists;
+// 	t_list	*new_node;
+
+// 	var_exists = var_node_exists(env->lst, var_and_value);
+// 	i = 0;
+// 	if (!var_exists)
+// 	{
+// 		new_node = ft_lstnew(var_exists->content);
+// 		if (!new_node)
+// 			return (EXIT_FAILURE);
+// 		ft_lstadd_back(&env, new_node);
+// 	}
+// 	else
+// 	{
+// 		if (concatenate)
+// 			var_exists->content = ft_strjoin(var_exists->content, ft_strchr(var_and_value, '='));
+// 		else
+// 		{
+// 			free(var_exists->content);
+// 			var_exists->content = ft_strdup(var_and_value);
+// 		}
+// 		if (!var_exists->content)
+// 			return (EXIT_FAILURE);
+// 	}
+// 	return (EXIT_SUCCESS);
+// 	//free env->tab et reappeler conv_env_to_tab ?
+// }
 
 
 /* arg[0] = "export" ; je recois les var d'env sans les guillemets */
-int run_export(char **args, t_envp *env)
+// int run_export(char **args, t_envp *env)
+// {
+// 	int	i;
+// 	int concatenate;
+
+// 	concatenate = 0;
+// 	if (!args[1])
+// 	{
+// 		sort_and_print(env->tab);
+// 		return (1);
+// 	}
+// 	i = 0;
+// 	while (args[i])
+// 	{
+// 		if (!check_valid_identifier(args[i]))
+// 		{
+// 			ft_putstr_fd("minishell: export: `", 1);
+// 			ft_putstr_fd(args[i], 1);
+// 			ft_putstr_fd("`: not a valid identifier\n", 1);
+// 		}
+// 		i++;
+// 		//CONCATENATE ?
+// 		add_to_env(env, args[i], concatenate);
+// 	}
+// 	return (1);
+// }
+
+int	add_to_env(t_list *env_lst, char *var_and_value, int concatenate)
 {
 	int	i;
-	
-	if (!args[1])
-	{
-		sort_and_print(env->tab);
-		return (1);
-	}
+	t_list *var_exists;
+	t_list	*new_node;
+
+	var_exists = var_node_exists(env_lst, var_and_value);
 	i = 0;
-	while (args[i])
+	if (!var_exists)
 	{
-		if (!check_valid_identifier(args[i]))
-		{
-			ft_putstr_fd("minishell: export: `", 1);
-			ft_putstr_fd(args[i], 1);
-			ft_putstr_fd("`: not a valid identifier\n", 1);
-		}
-		i++;
-		// add_to_env(env, args[i]);
+		new_node = ft_lstnew(var_and_value);
+		if (!new_node)
+			return (EXIT_FAILURE);
+		ft_lstadd_back(&env_lst, new_node);
 	}
-	return (1);
+	else
+	{
+		if (concatenate)
+			var_exists->content = ft_strjoin(var_exists->content, ft_strchr(var_and_value, '='));
+		else
+		{
+			var_exists->content = NULL;
+			// free(var_exists);
+			var_exists->content = var_and_value;
+		}
+		if (!var_exists->content)
+			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+	//free env->tab et reappeler conv_env_to_tab ?
 }
 
 int main(int argc, char **argv, char **env)
 {
-	printf("%d\n", check_valid_identifier(argv[1]));
+	t_list *first_node = ft_lstnew("OK=bonjour");
+	
+	ft_lstadd_back(&first_node, ft_lstnew("HELLO=quoi"));
+	ft_lstadd_back(&first_node, ft_lstnew("VAR3=hey"));
+
+	add_to_env(first_node, "VAR2=essai", 0);
+	add_to_env(first_node, "VAR2=essai", 0);
+	t_list *tmp = first_node;
+	while (tmp)
+	{
+		printf("%s\n", tmp->content);
+		tmp = tmp->next;
+	}
+	ft_lstclear(&first_node);
 	// t_envp *env;
 
 	// run_export(argv);

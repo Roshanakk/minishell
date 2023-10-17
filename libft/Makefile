@@ -21,6 +21,7 @@ SRC	= ft_printf_utils.c \
 	ft_isalpha.c \
 	ft_isdigit.c \
 	ft_swap.c \
+	ft_strchr.c \
 
 OBJS = ${SRC:.c=.o}
 
