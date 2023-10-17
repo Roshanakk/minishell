@@ -20,6 +20,7 @@ SRC	= ft_printf_utils.c \
 	ft_array_size.c \
 	ft_isalpha.c \
 	ft_isdigit.c \
+	ft_swap.c \
 
 OBJS = ${SRC:.c=.o}
 

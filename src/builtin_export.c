@@ -6,38 +6,11 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 11:04:58 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/16 15:18:07 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/17 11:58:00 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-// char **dup_array(char **array)
-// {
-// 	char	**dup;
-// 	int		i;
-// 	dup = malloc(sizeof(char *) * ft_array_size(array));
-// 	if (!dup)
-// 		return (NULL);
-// 	i = 0;
-// 	while (i < ft_array_size(array))
-// 	{
-// 		dup[i] = ft_strdup(array[i]);
-// 		if (!dup[i])
-// 			return (ft_free_array(dup, i));
-// 		i++;
-// 	}
-// 	return (dup);
-// }
-
-void	ft_swap(char **a, char **b)
-{
-	char	*a1;
-
-	a1 = *a;
-	*a = *b;
-	*b = a1;
-}
 
 //que faire de la derniere variable _= ?
 void	print_export(char **dup_env)
@@ -98,7 +71,7 @@ int	check_valid_identifier(char *str)
 	if (!str || !str[0] || (!ft_isalpha(str[0]) && str[0] != '_'))
 		return (0);
 	i = 1;
-	while (str[i])
+	while (str[i] && str[i] != '=')
 	{
 		if (!ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_')
 			return (0);
@@ -107,8 +80,38 @@ int	check_valid_identifier(char *str)
 	return (1);
 }
 
+t_list	*var_node_exists(t_list *lst, char *var_and_value)
+{
+	t_list *tmp;
+	tmp = lst;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->content, var_and_value))
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
+void	add_to_env(t_envp *env, char *var_and_value)
+{
+	int	i;
+	t_list *var_exists;
+	var_exists = var_node_exists(env->lst, var_and_value);
+	i = 0;
+	//si la var n'est pas deja dans l'env
+		//on lst_addback dans la liste chainee
+	//sinon
+		//si concatenate
+			//on strjoin la partie apres le '='
+		//sinon
+			//on free et set a NULL la var
+			//on met la nouvelle valeur
+	//free env->tab et reappeler conv_env_to_tab ?
+}
 
 
+/* arg[0] = "export" ; je recois les var d'env sans les guillemets */
 int run_export(char **args, t_envp *env)
 {
 	int	i;
@@ -128,11 +131,8 @@ int run_export(char **args, t_envp *env)
 			ft_putstr_fd("`: not a valid identifier\n", 1);
 		}
 		i++;
-		add_to_env(env, args[i]); //<<<<<<<<<<<<<<<<<<====
+		// add_to_env(env, args[i]);
 	}
-	/////////////////////////
-	/////////////////////////
-	/////////////////////////
 	return (1);
 }
 

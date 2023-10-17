@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:16:36 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/16 11:37:46 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/17 11:14:00 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char *get_path(char **envp, char *cmd)
 	return (NULL);
 }
 
+//A GERER : PWD ET OLDPWD
 int	create_env_lst(char **envp, t_envp *env)
 {
 	int		i;
@@ -51,7 +52,7 @@ int	create_env_lst(char **envp, t_envp *env)
 	envp_i = ft_strdup(envp[i]);
 	if (!envp_i)
 		return (0);
-	env->lst = ft_lstnew(envp_i, 0);
+	env->lst = ft_lstnew(envp_i);
 	if (!env->lst)
 		return (0);
 	while (envp[++i])
@@ -59,7 +60,7 @@ int	create_env_lst(char **envp, t_envp *env)
 		envp_i = ft_strdup(envp[i]);
 		if (!envp_i)
 			return (0);
-		new_node = ft_lstnew(envp_i, i);
+		new_node = ft_lstnew(envp_i);
 		if (!new_node)
 			return (0);		
 		ft_lstadd_back(&(env->lst), new_node);
@@ -67,6 +68,7 @@ int	create_env_lst(char **envp, t_envp *env)
 	return (1);
 }
 
+//A APPELER POUR MAJ (POUR CHAQUE MODIF DE ENV)
 int	convert_env_to_tab(t_envp *env)
 {
 	int		i;

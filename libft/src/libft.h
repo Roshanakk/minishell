@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:49:33 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/16 15:07:19 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/17 11:12:59 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,12 @@
 typedef struct s_list
 {
 	char			*content;
-    int             index;
 	struct s_list	*next;
 }	t_list;
-int		ft_isalpha(int c);
-int		ft_isdigit(int c);
-t_list	*ft_lstnew(void *content, int index);
+t_list	*ft_lstnew(void *content);
+t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
-t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst);
@@ -42,10 +39,13 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s);
 char	**ft_free_array(char	**str, size_t	l);
 size_t	ft_cmpt(char const *s, char c);
-int	ft_strcmp(const char *s1, const char *s2);
+size_t	ft_array_size(char **array);
+int		ft_strcmp(const char *s1, const char *s2);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
-size_t	ft_array_size(char **array);
+void	ft_swap(char **a, char **b);
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
 
 
 #endif
