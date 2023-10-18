@@ -60,6 +60,7 @@ int	create_env_lst(char **envp, t_envp *env)
 		envp_i = ft_strdup(envp[i]);
 		if (!envp_i)
 			return (EXIT_FAILURE);
+// IL MANQUE LE FREE LST DE LA PROTECTION
 		new_node = ft_lstnew(envp_i);
 		if (!new_node)
 			return (EXIT_FAILURE);		

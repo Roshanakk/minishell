@@ -93,6 +93,8 @@ t_list	*var_node_exists(t_list *lst, char *var_and_value)
 	return (NULL);
 }
 
+/* Faire strdup du content de chaque maillon de l'env (deja fait dans la partie env)*/
+
 // int	add_to_env(t_envp *env, char *var_and_value, int concatenate)
 // {
 // 	int	i;
