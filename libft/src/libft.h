@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azarraffi <azarraffi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:49:33 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/17 12:09:59 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/18 18:29:42 by azarraffi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # include <string.h>
 # include <stddef.h>
 # include <stdint.h>
-# include <bsd/string.h>
+# include <string.h>
+// # include <bsd/string.h>
 
 typedef struct s_list
 {

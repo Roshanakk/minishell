@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azarraffi <azarraffi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:20:34 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/16 11:35:33 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/18 18:29:35 by azarraffi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "libft.h"
-#include "ft_printf.h"
+// #include "libft.h"
+// #include "ft_printf.h"
 #include <sys/types.h>
 #include <sys/wait.h>
 
