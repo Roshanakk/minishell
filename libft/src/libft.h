@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:49:33 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/09 13:35:30 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:54:08 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_list
     int             index;
 	struct s_list	*next;
 }	t_list;
-t_list	*ft_lstnew(void *content, int index);
+t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
