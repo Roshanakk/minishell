@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azarraffi <azarraffi@student.42.fr>        +#+  +:+       +#+        */
+/*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 11:04:58 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/18 18:56:50 by azarraffi        ###   ########.fr       */
+/*   Updated: 2023/10/19 15:33:06 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,32 +188,32 @@ int	add_to_env(t_list *env_lst, char *var_and_value, int concatenate)
 	//free env->tab et reappeler conv_env_to_tab ?
 }
 
-// int main(int argc, char **argv, char **env)
-// {
-// 	t_list *first_node = ft_lstnew("OK=bonjour");
+int main(int argc, char **argv, char **env)
+{
+	t_list *first_node = ft_lstnew("OK=bonjour");
 	
-// 	ft_lstadd_back(&first_node, ft_lstnew("HELLO=quoi"));
-// 	ft_lstadd_back(&first_node, ft_lstnew("VAR3=hey"));
+	ft_lstadd_back(&first_node, ft_lstnew("HELLO=quoi"));
+	ft_lstadd_back(&first_node, ft_lstnew("VAR3=hey"));
 
-// 	add_to_env(first_node, "VAR2=essai", 0);
-// 	add_to_env(first_node, "VAR2=essai", 0);
-// 	t_list *tmp = first_node;
-// 	while (tmp)
-// 	{
-// 		printf("%s\n", tmp->content);
-// 		tmp = tmp->next;
-// 	}
-// 	ft_lstclear(&first_node);
-// 	// t_envp *env;
+	add_to_env(first_node, "VAR2=essai", 0);
+	add_to_env(first_node, "VAR2=essai", 0);
+	t_list *tmp = first_node;
+	while (tmp)
+	{
+		printf("%s\n", tmp->content);
+		tmp = tmp->next;
+	}
+	ft_lstclear(&first_node);
+	// t_envp *env;
 
-// 	// run_export(argv);
-// 	// sort(new_argv);
-// 	// int i = 0;
-// 	// while (new_argv[i])
-// 	// {
-// 	// 	printf("%s\n", new_argv[i]);
-// 	// 	i++;
-// 	// }
-// 	// ft_free_array(new_argv, ft_array_size(new_argv));
-// }
+	// run_export(argv);
+	// sort(new_argv);
+	// int i = 0;
+	// while (new_argv[i])
+	// {
+	// 	printf("%s\n", new_argv[i]);
+	// 	i++;
+	// }
+	// ft_free_array(new_argv, ft_array_size(new_argv));
+}
 
