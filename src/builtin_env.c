@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:16:36 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/17 12:13:20 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:28:59 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ char *get_path(char **envp, char *cmd)
 		path_part = ft_strjoin(all_paths[i], "/");
 		if (!path_part)
 			return (NULL);
-		path_exec = ft_strjoin(path_part, cmd);
+		path_exec = ft_strjoin_and_free(path_part, cmd);
 		if (!path_exec)
 			return (NULL);
-		free(path_part);
+		// free(path_part);
 		if (access(path_exec, F_OK) == 0)
 			return (ft_free_array(all_paths, ft_cmpt(getenv("PATH"), ':')), path_exec);
 		free(path_exec);
@@ -49,6 +49,7 @@ int	create_env_lst(char **envp, t_envp *env)
 	t_list	*new_node;
 
 	i = 0;
+
 	envp_i = ft_strdup(envp[i]);
 	if (!envp_i)
 		return (EXIT_FAILURE);
@@ -75,21 +76,20 @@ int	convert_env_to_tab(t_envp *env)
 	int		i;
 	t_list	*node;
 
-	// env->tab = malloc_env->tab(env->lst);
 	env->tab = malloc(sizeof(char *) * ft_lstsize(env->lst));
 	if (!env->tab)
-		return (0);
+		return (EXIT_FAILURE);
 	i = 0;
 	node = env->lst;
 	while (node)
 	{
 		env->tab[i] = ft_strdup(node->content);
 		if (!env->tab[i])
-			return (0);
+			return (EXIT_FAILURE);
 		i++;
 		node = node->next;
 	}
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
 // int main(int argc, char **argv, char **envp)
@@ -98,10 +98,12 @@ int	convert_env_to_tab(t_envp *env)
 
 // 	// if (!ft_strcmp(argv[1], "env"))
 // 		// env->lst = create_env->lst(envp);
-// 	if (!create_env_lst(envp, &env))
+// 	// printf("OK");
+// 	if (create_env_lst(envp, &env))
 // 		return (EXIT_FAILURE);
-// 	if (!convert_env_to_tab(&env))
+// 	if (convert_env_to_tab(&env))
 // 		return (ft_lstclear(&(env.lst)), EXIT_FAILURE);
+	
 // 	int i = 0;
 // 	while (i < ft_lstsize(env.lst))
 // 	{

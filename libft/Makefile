@@ -6,6 +6,7 @@ SRC	= ft_printf_utils.c \
 	ft_putnbr.c \
 	ft_split.c \
 	ft_strjoin.c \
+	ft_strjoin_and_free.c \
 	ft_strdup.c \
 	ft_strcmp.c \
 	ft_lstnew.c \
@@ -21,7 +22,7 @@ SRC	= ft_printf_utils.c \
 	ft_isalpha.c \
 	ft_isdigit.c \
 	ft_swap.c \
-	ft_strchr.c \
+	ft_strchr_plus_one.c \
 
 OBJS = ${SRC:.c=.o}
 

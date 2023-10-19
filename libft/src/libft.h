@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:49:33 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/19 15:12:13 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:22:37 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin_and_free(char *s1, char const *s2);
 char	*ft_strdup(const char *s);
 char	**ft_free_array(char	**str, size_t	l);
 size_t	ft_cmpt(char const *s, char c);
@@ -47,7 +48,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_swap(char **a, char **b);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
-char	*ft_strchr(const char *s, int c);
+char	*ft_strchr_plus_one(const char *s, int c);
 
 
 #endif

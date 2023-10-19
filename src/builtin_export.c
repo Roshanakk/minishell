@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 11:04:58 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/19 15:33:06 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:29:08 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,126 +94,116 @@ t_list	*node_in_env(t_list *lst, char *var_and_value)
 	return (NULL);
 }
 
-/* Faire strdup du content de chaque maillon de l'env (deja fait dans la partie env)*/
-
-// int	add_to_env(t_envp *env, char *var_and_value, int concatenate)
-// {
-// 	int	i;
-// 	t_list *var_exists;
-// 	t_list	*new_node;
-
-// 	var_exists = node_in_env(env->lst, var_and_value);
-// 	i = 0;
-// 	if (!var_exists)
-// 	{
-// 		new_node = ft_lstnew(var_exists->content);
-// 		if (!new_node)
-// 			return (EXIT_FAILURE);
-// 		ft_lstadd_back(&env, new_node);
-// 	}
-// 	else
-// 	{
-// 		if (concatenate)
-// 			var_exists->content = ft_strjoin(var_exists->content, ft_strchr(var_and_value, '='));
-// 		else
-// 		{
-// 			free(var_exists->content);
-// 			var_exists->content = ft_strdup(var_and_value);
-// 		}
-// 		if (!var_exists->content)
-// 			return (EXIT_FAILURE);
-// 	}
-// 	return (EXIT_SUCCESS);
-// 	//free env->tab et reappeler conv_env_to_tab ?
-// }
-
-
 /* arg[0] = "export" ; je recois les var d'env sans les guillemets */
-// int run_export(char **args, t_envp *env)
-// {
-// 	int	i;
-// 	int concatenate;
 
-// 	concatenate = 0;
-// 	if (!args[1])
-// 	{
-// 		sort_and_print(env->tab);
-// 		return (1);
-// 	}
-// 	i = 0;
-// 	while (args[i])
-// 	{
-// 		if (!check_valid_identifier(args[i]))
-// 		{
-// 			ft_putstr_fd("minishell: export: `", 1);
-// 			ft_putstr_fd(args[i], 1);
-// 			ft_putstr_fd("`: not a valid identifier\n", 1);
-// 		}
-// 		i++;
-// 		//CONCATENATE ?
-// 		add_to_env(env, args[i], concatenate);
-// 	}
-// 	return (1);
-// }
-
-int	add_to_env(t_list *env_lst, char *var_and_value, int concatenate)
+int	add_to_env(t_envp *env, char *var_and_value, int concatenate)
 {
 	int	i;
 	t_list *var_exists;
 	t_list	*new_node;
 
-	var_exists = node_in_env(env_lst, var_and_value);
+	var_exists = node_in_env(env->lst, var_and_value);
 	i = 0;
 	if (!var_exists)
 	{
-		new_node = ft_lstnew(var_and_value);
+		new_node = ft_lstnew(ft_strdup(var_and_value));
 		if (!new_node)
 			return (EXIT_FAILURE);
-		ft_lstadd_back(&env_lst, new_node);
+		ft_lstadd_back(&(env->lst), new_node);
 	}
 	else
 	{
 		if (concatenate)
-			var_exists->content = ft_strjoin(var_exists->content, ft_strchr(var_and_value, '='));
+			var_exists->content = ft_strjoin_and_free(var_exists->content, ft_strchr_plus_one(var_and_value, '='));
 		else
 		{
-			var_exists->content = NULL;
-			// free(var_exists);
-			var_exists->content = var_and_value;
+			free(var_exists->content);
+			var_exists->content = ft_strdup(var_and_value);
 		}
 		if (!var_exists->content)
 			return (EXIT_FAILURE);
 	}
+	convert_env_to_tab(env);
 	return (EXIT_SUCCESS);
-	//free env->tab et reappeler conv_env_to_tab ?
 }
 
-int main(int argc, char **argv, char **env)
+int	check_for_plus_sign(char *str)
 {
-	t_list *first_node = ft_lstnew("OK=bonjour");
-	
-	ft_lstadd_back(&first_node, ft_lstnew("HELLO=quoi"));
-	ft_lstadd_back(&first_node, ft_lstnew("VAR3=hey"));
+	int	i;
 
-	add_to_env(first_node, "VAR2=essai", 0);
-	add_to_env(first_node, "VAR2=essai", 0);
-	t_list *tmp = first_node;
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	if (str[i - 1] && str[i - 1] == '+')
+		return (1);
+	return (0);
+}
+
+
+//ACTUALISER ENV_TAB AVANT DE FAIRE EXPORT
+int run_export(char **args, t_envp *env)
+{
+	int	i;
+	int concatenate;
+
+	if (!args[1])
+	{
+		sort_and_print(env->tab);
+		return (1);
+	}
+	i = 0;
+	while (args[i])
+	{
+		if (!check_valid_identifier(args[i]))
+		{
+			ft_putstr_fd("minishell: export: `", 1);
+			ft_putstr_fd(args[i], 1);
+			ft_putstr_fd("`: not a valid identifier\n", 1);
+		}
+		else
+		{
+			concatenate = check_for_plus_sign(args[i]);
+			add_to_env(env, args[i], concatenate);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int main(int argc, char **argv, char **envp)
+{
+	// t_list *first_node = ft_lstnew(ft_strdup("OK=bonjour"));
+	// ft_lstadd_back(&first_node, ft_lstnew(ft_strdup("HELLO=quoi")));
+	// ft_lstadd_back(&first_node, ft_lstnew(ft_strdup("VAR3=hey")));
+	// add_to_env(first_node, "VAR2=essai", 0);
+	// add_to_env(first_node, "VAR2=essai", 1);
+	// t_list *tmp = first_node;
+	// while (tmp)
+	// {
+	// 	printf("%s\n", tmp->content);
+	// 	tmp = tmp->next;
+	// }
+	// ft_lstclear(&first_node);
+	
+
+	t_envp env;
+
+	if (create_env_lst(envp, &env))
+		return (EXIT_FAILURE);
+	if (convert_env_to_tab(&env))
+		return (ft_lstclear(&(env.lst)), EXIT_FAILURE);
+
+	// if (!ft_strcmp(argv[1], "export"))
+	// 	run_export(argv, &env);
+	t_list *tmp;
+	tmp = env.lst;
 	while (tmp)
 	{
 		printf("%s\n", tmp->content);
 		tmp = tmp->next;
 	}
-	ft_lstclear(&first_node);
-	// t_envp *env;
+	ft_free_array(env.tab, ft_lstsize(env.lst) - 1);
+	ft_lstclear(&(env.lst));
 
-	// run_export(argv);
-	// sort(new_argv);
-	// int i = 0;
-	// while (new_argv[i])
-	// {
-	// 	printf("%s\n", new_argv[i]);
-	// 	i++;
-	// }
-	// ft_free_array(new_argv, ft_array_size(new_argv));
 }
 
