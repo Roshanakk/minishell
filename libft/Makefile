@@ -9,6 +9,7 @@ SRC	= ft_printf_utils.c \
 	ft_strjoin_and_free.c \
 	ft_strdup.c \
 	ft_strcmp.c \
+	ft_strncmp.c \
 	ft_lstnew.c \
 	ft_lstadd_front.c \
 	ft_lstadd_back.c \

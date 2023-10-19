@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:49:33 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/19 19:01:00 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:51:53 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	**ft_free_array(char	**str, size_t	l);
 size_t	ft_cmpt(char const *s, char c);
 size_t	ft_array_size(char **array);
 int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 void	ft_swap(char **a, char **b);
