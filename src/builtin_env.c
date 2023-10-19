@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:16:36 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/19 18:28:59 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:09:11 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ int	create_env_lst(char **envp, t_envp *env)
 	char 	*envp_i;
 	t_list	*new_node;
 
+	if (!envp[0] || !envp[0][0])
+		return (EXIT_FAILURE);
 	i = 0;
-
 	envp_i = ft_strdup(envp[i]);
 	if (!envp_i)
 		return (EXIT_FAILURE);
@@ -76,7 +77,7 @@ int	convert_env_to_tab(t_envp *env)
 	int		i;
 	t_list	*node;
 
-	env->tab = malloc(sizeof(char *) * ft_lstsize(env->lst));
+	env->tab = ft_calloc(sizeof(char *), ft_lstsize(env->lst) + 1);
 	if (!env->tab)
 		return (EXIT_FAILURE);
 	i = 0;
@@ -89,6 +90,7 @@ int	convert_env_to_tab(t_envp *env)
 		i++;
 		node = node->next;
 	}
+	env->tab[i] = NULL;
 	return (EXIT_SUCCESS);
 }
 

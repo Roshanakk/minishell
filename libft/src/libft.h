@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:49:33 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/19 16:22:37 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:01:00 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	ft_swap(char **a, char **b);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 char	*ft_strchr_plus_one(const char *s, int c);
+void	*ft_calloc(size_t nmemb, size_t size);
+void	ft_bzero(void *s, size_t n);
 
 
 #endif

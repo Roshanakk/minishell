@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 11:04:58 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/19 18:29:08 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:35:49 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,16 @@ void	sort_and_print(char **env_tab)
 	char	**dup_env;
 	int	i;
 	int	j;
+	size_t	array_size;
+	char *tmp;
 
 	dup_env = env_tab;
+	array_size = ft_array_size(dup_env);
 	j = 0;
-	while (j < ft_array_size(dup_env))
+	while (j < array_size)
 	{
 		i = 0;
-		while (i < ft_array_size(dup_env))
+		while (i < array_size)
 		{
 			if (dup_env[i + 1] && ft_strcmp(dup_env[i], dup_env[i + 1]) > 0)
 				ft_swap(&dup_env[i], &dup_env[i + 1]);
@@ -123,7 +126,8 @@ int	add_to_env(t_envp *env, char *var_and_value, int concatenate)
 		if (!var_exists->content)
 			return (EXIT_FAILURE);
 	}
-	convert_env_to_tab(env);
+	// ft_free_array(env->tab, ft_array_size(env->tab));
+	// convert_env_to_tab(env);
 	return (EXIT_SUCCESS);
 }
 
@@ -140,7 +144,7 @@ int	check_for_plus_sign(char *str)
 }
 
 
-//ACTUALISER ENV_TAB AVANT DE FAIRE EXPORT
+// ACTUALISER ENV_TAB AVANT DE FAIRE EXPORT
 int run_export(char **args, t_envp *env)
 {
 	int	i;
@@ -170,6 +174,8 @@ int run_export(char **args, t_envp *env)
 	return (1);
 }
 
+
+
 int main(int argc, char **argv, char **envp)
 {
 	// t_list *first_node = ft_lstnew(ft_strdup("OK=bonjour"));
@@ -188,21 +194,33 @@ int main(int argc, char **argv, char **envp)
 
 	t_envp env;
 
-	if (create_env_lst(envp, &env))
+	// printf("%zu\n", ft_array_size(argv));
+	if (create_env_lst(argv + 1, &env))
 		return (EXIT_FAILURE);
 	if (convert_env_to_tab(&env))
 		return (ft_lstclear(&(env.lst)), EXIT_FAILURE);
 
-	// if (!ft_strcmp(argv[1], "export"))
-	// 	run_export(argv, &env);
-	t_list *tmp;
-	tmp = env.lst;
+	add_to_env(&env, "OK=oui", 0);
+	t_list *tmp = env.lst;
+	
 	while (tmp)
 	{
 		printf("%s\n", tmp->content);
 		tmp = tmp->next;
 	}
-	ft_free_array(env.tab, ft_lstsize(env.lst) - 1);
+	// if (!ft_strcmp(argv[1], "export"))
+	// 	run_export(argv + 1, &env);
+	// ft_lstadd_back(&env.lst, ft_lstnew(ft_strdup("OKKKKK")));
+	// ft_free_array(env.tab, ft_array_size(env.tab));
+	// if (convert_env_to_tab(&env))
+	// 	return (ft_lstclear(&(env.lst)), EXIT_FAILURE);
+
+	// sort_and_print(env.tab);
+	// ft_test(env.tab);
+	// printf("%zu\n", ft_array_size(env.tab));
+
+	ft_free_array(env.tab, ft_array_size(env.tab));
+	// ft_free_array(env.tab, ft_lstsize(env.lst) - 1);
 	ft_lstclear(&(env.lst));
 
 }
