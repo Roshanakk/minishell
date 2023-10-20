@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 11:04:58 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/19 21:30:39 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/20 12:04:14 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,15 @@ size_t	len_until_equal_sign(char *str)
 t_list	*node_in_env(t_list *lst, char *var_and_value)
 {
 	t_list *tmp;
-	tmp = lst;
 	size_t len;
 
-	len = len_until_equal_sign(tmp->content);
-	if (len != len_until_equal_sign(var_and_value))
-		return (NULL);
+	tmp = lst;
+	len = len_until_equal_sign(var_and_value);
+	tmp = lst;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->content, var_and_value, len))
+		if ((len == len_until_equal_sign(tmp->content))
+			&& !ft_strncmp(tmp->content, var_and_value, len))
 			return (tmp);
 		tmp = tmp->next;
 	}
@@ -161,6 +161,13 @@ int	check_for_plus_sign(char *str)
 	return (0);
 }
 
+int	is_not_underscore(char *str)
+{
+	if (ft_strncmp(str, "_", 1))
+		return (1);
+	else
+		return (0);
+}
 
 // ACTUALISER ENV_TAB AVANT DE FAIRE EXPORT
 int run_export(char **args, t_envp *env)
@@ -182,10 +189,9 @@ int run_export(char **args, t_envp *env)
 			ft_putstr_fd(args[i], 1);
 			ft_putstr_fd("`: not a valid identifier\n", 1);
 		}
-		else if (len_until_equal_sign(args[i]))
+		else if (len_until_equal_sign(args[i]) && is_not_underscore(args[i]))
 		{
 			concatenate = check_for_plus_sign(args[i]);
-			// printf("concatenate = %d\n", concatenate);
 			add_to_env(env, args[i], concatenate);
 		}
 		i++;
@@ -213,15 +219,18 @@ int main(int argc, char **argv, char **envp)
 
 	t_envp env;
 
-	if (create_env_lst(argv + 1, &env))
+	if (create_env_lst(envp + 51, &env))
 		return (EXIT_FAILURE);
 	if (convert_env_to_tab(&env))
 		return (ft_lstclear(&(env.lst)), EXIT_FAILURE);
 
-	char str[] = "OUI===";
-	if (len_until_equal_sign(str))
-		add_to_env(&env, str, 0);
-	// run_export(argv + 1, &env);
+	// char str[] = "OUI===";
+	// if (len_until_equal_sign(str))
+	// 	add_to_env(&env, str, 0);
+	// char str1[] = "OUI=COUCOU";
+	// if (len_until_equal_sign(str1))
+	// 	add_to_env(&env, str1, 0);
+	run_export(argv, &env);
 	// t_list *tmp = env.lst;
 	
 	// while (tmp)
