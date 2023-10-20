@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 11:04:58 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/20 14:02:52 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:09:11 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,9 @@ int	is_not_underscore(char *str)
 		return (0);
 }
 
-// ACTUALISER ENV_TAB AVANT DE FAIRE EXPORT
+// la condition "else if (len_until_equal_sign(args[i]) ...)" 
+// permet de verifier qu'il y a un signe '=' 
+// sans signe '=', pas d'export
 int run_export(char **args, t_envp *env)
 {
 	int	i;

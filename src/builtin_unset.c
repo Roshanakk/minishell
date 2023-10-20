@@ -6,22 +6,30 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:04:52 by azarraffi         #+#    #+#             */
-/*   Updated: 2023/10/20 15:19:41 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:10:10 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	remove_from_env(char *var_and_value, t_list **env_lst)
+int	can_be_unset(char *var, char *node_content)
+{
+	size_t	var_len;
+
+	var_len = ft_strlen(var);
+	if ((var_len == len_until_equal_sign(node_content))
+		&& !ft_strncmp(node_content, var, var_len))
+		return (1);
+	return (0);
+}
+
+void	remove_from_env(char *var, t_list **env_lst)
 {
 	t_list *node;
 	t_list *previous;
-	size_t len;
 
 	node = *env_lst;
-	len = len_until_equal_sign(var_and_value);
-	if ((len == len_until_equal_sign(node->content))
-		&& !ft_strncmp(node->content, var_and_value, len))
+	if (can_be_unset(var, node->content))
 	{
 		*env_lst = node->next;
 		ft_lstdelone(node);
@@ -29,17 +37,44 @@ void	remove_from_env(char *var_and_value, t_list **env_lst)
 	}
 	node = (*env_lst)->next;
 	previous = *env_lst;
-	while (node && !(len == len_until_equal_sign(node->content))
-			&& ft_strncmp(node->content, var_and_value, len))
+	while (node)
 	{
-		previous = previous->next;
+		if (can_be_unset(var, node->content))
+		{
+			previous->next = node->next;
+			ft_lstdelone(node);		
+			break;
+		}
 		node = node->next;
+		previous = previous->next;
 	}
-	if (!node)
-		return ;
-	previous->next = node->next;
-	ft_lstdelone(node);
 }
+
+// void	remove_from_env(char *var, t_list **env_lst)
+// {
+// 	t_list *node;
+// 	t_list *previous;
+
+// 	node = *env_lst;
+// 	if (can_be_unset(var, node->content))
+// 	{
+// 		*env_lst = node->next;
+// 		ft_lstdelone(node);
+// 		return ;
+// 	}
+// 	node = (*env_lst)->next;
+// 	previous = *env_lst;
+// 	while (node
+// 		&& !can_be_unset(var, node->content))
+// 	{
+// 		previous = previous->next;
+// 		node = node->next;
+// 	}
+// 	if (!node)
+// 		return ;
+// 	previous->next = node->next;
+// 	ft_lstdelone(node);
+// }
 
 
 int	run_unset(char **args, t_envp *env)
@@ -64,7 +99,7 @@ int	run_unset(char **args, t_envp *env)
 	return (EXIT_SUCCESS);
 }
 
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **envp)
 {
  	t_list *first_node = ft_lstnew(ft_strdup("ROXANE=bonjour"));
 	t_list *tmp ;
@@ -75,7 +110,15 @@ int main(int argc, char **argv)
 	ft_lstadd_back(&first_node, ft_lstnew(ft_strdup("VAR4=hey")));
 
 	// remove_from_env("HELLO", &first_node);
-	remove_from_env("ROXANE=bonjour", &first_node);
+	// t_envp	env;
+	// t_list *tmp;
+
+	// if (create_env_lst(envp, &env))
+	// 	return (EXIT_FAILURE);
+	// if (convert_env_to_tab(&env))
+	// 	return (ft_lstclear(&(first_node)), EXIT_FAILURE);
+
+	remove_from_env("HELLO=quoi", &first_node);
 	tmp = first_node;
 	while (tmp)
 	{
@@ -83,4 +126,5 @@ int main(int argc, char **argv)
 		tmp = tmp->next;
 	}
 	ft_lstclear(&first_node);
+	// ft_free_array(env.tab, ft_array_size(env.tab));
 }
