@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 11:04:58 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/20 12:04:14 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/20 14:02:52 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ int	add_to_env(t_envp *env, char *var_and_value, int concatenate)
 	i = 0;
 	if (!var_exists)
 	{
-		// printf("%s, VAR_EXISTE\n", var_and_value);
 		new_node = ft_lstnew(ft_strdup(var_and_value));
 		if (!new_node)
 			return (EXIT_FAILURE);
@@ -137,7 +136,6 @@ int	add_to_env(t_envp *env, char *var_and_value, int concatenate)
 			var_exists->content = ft_strjoin_and_free(var_exists->content, ft_strchr_plus_one(var_and_value, '='));
 		else
 		{
-			// printf("%s, VAR_NEXISTE_PAS\n", var_and_value);
 			free(var_exists->content);
 			var_exists->content = ft_strdup(var_and_value);
 		}
@@ -199,57 +197,36 @@ int run_export(char **args, t_envp *env)
 	return (1);
 }
 
-int main(int argc, char **argv, char **envp)
-{
-	// printf("%zu\n", len_until_equal_sign("o="));
-	// t_list *first_node = ft_lstnew(ft_strdup("ROXANE=bonjour"));
-	// ft_lstadd_back(&first_node, ft_lstnew(ft_strdup("HELLO=quoi")));
-	// ft_lstadd_back(&first_node, ft_lstnew(ft_strdup("VAR3=hey")));
+// int main(int argc, char **argv, char **envp)
+// {
+// 	t_envp env;
 
-	// add_to_env(first_node, "VAR2=essai", 0);
-	// add_to_env(first_node, "VAR2=essai", 1);
-	// t_list *tmp = first_node;
-	// while (tmp)
-	// {
-	// 	printf("%s\n", tmp->content);
-	// 	tmp = tmp->next;
-	// }
-	// ft_lstclear(&first_node);
+// 	if (create_env_lst(envp + 51, &env))
+// 		return (EXIT_FAILURE);
+// 	if (convert_env_to_tab(&env))
+// 		return (ft_lstclear(&(env.lst)), EXIT_FAILURE);
+
+// 	// char str[] = "OUI===";
+// 	// if (len_until_equal_sign(str))
+// 	// 	add_to_env(&env, str, 0);
+// 	// char str1[] = "OUI=COUCOU";
+// 	// if (len_until_equal_sign(str1))
+// 	// 	add_to_env(&env, str1, 0);
+// 	run_export(argv, &env);
+// 	// t_list *tmp = env.lst;
 	
-
-	t_envp env;
-
-	if (create_env_lst(envp + 51, &env))
-		return (EXIT_FAILURE);
-	if (convert_env_to_tab(&env))
-		return (ft_lstclear(&(env.lst)), EXIT_FAILURE);
-
-	// char str[] = "OUI===";
-	// if (len_until_equal_sign(str))
-	// 	add_to_env(&env, str, 0);
-	// char str1[] = "OUI=COUCOU";
-	// if (len_until_equal_sign(str1))
-	// 	add_to_env(&env, str1, 0);
-	run_export(argv, &env);
-	// t_list *tmp = env.lst;
-	
-	// while (tmp)
-	// {
-	// 	printf("%s\n", tmp->content);
-	// 	tmp = tmp->next;
-	// }
-
-	int i = 0;
-	while (env.tab[i])
-	{
-		printf("%s\n", env.tab[i]);
-		i++;
-	}
-
-	ft_free_array(env.tab, ft_array_size(env.tab));
-	ft_lstclear(&(env.lst));
-
-	
-
-}
+// 	// while (tmp)
+// 	// {
+// 	// 	printf("%s\n", tmp->content);
+// 	// 	tmp = tmp->next;
+// 	// }
+// 	int i = 0;
+// 	while (env.tab[i])
+// 	{
+// 		printf("%s\n", env.tab[i]);
+// 		i++;
+// 	}
+// 	ft_free_array(env.tab, ft_array_size(env.tab));
+// 	ft_lstclear(&(env.lst));
+// }
 

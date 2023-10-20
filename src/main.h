@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:20:34 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/19 16:37:50 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/20 14:59:07 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,10 @@ void	dup_tmp_fd(int *previous_pipe, t_fds_struct *fds, t_cmd_items *cmd_items, i
 int	create_env_lst(char **envp, t_envp *env);
 int	convert_env_to_tab(t_envp *env);
 char *get_path(char **envp, char *cmd);
+
+//
+t_list	*node_in_env(t_list *lst, char *var_and_value);
+size_t	len_until_equal_sign(char *str);
+int	check_valid_identifier(char *str);
 
 #endif

@@ -7,6 +7,7 @@ SRC = main.c \
 	builtin_env.c \
 	builtin_echo.c \
 	builtin_export.c \
+	builtin_unset.c \
 
 OBJ = ${SRC:.c=.o}
 
