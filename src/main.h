@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:20:34 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/20 14:59:07 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/23 11:05:02 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,10 @@ int	open_files(int *infile, int *outfile, char **argv, int argc);
 int	create_cmd_items(t_cmd_items **cmd_items, char *argv_cmd, char **argv);
 
 
-
 //FREE.C
 int	ft_free_cmd_items(t_cmd_items **cmd_items);
 int	ft_free_fds_struct(t_fds_struct **fds);
 int	close_and_free(t_fds_struct *fds, int flag);
-
 
 
 //SAFE_FD_FUNCTIONS.C

@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:04:52 by azarraffi         #+#    #+#             */
-/*   Updated: 2023/10/20 16:10:10 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/23 11:08:23 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,32 +99,32 @@ int	run_unset(char **args, t_envp *env)
 	return (EXIT_SUCCESS);
 }
 
-int main(int argc, char **argv, char **envp)
-{
- 	t_list *first_node = ft_lstnew(ft_strdup("ROXANE=bonjour"));
-	t_list *tmp ;
-	t_list *tmp2 ;
+// int main(int argc, char **argv, char **envp)
+// {
+//  	t_list *first_node = ft_lstnew(ft_strdup("ROXANE=bonjour"));
+// 	t_list *tmp ;
+// 	t_list *tmp2 ;
 
-	ft_lstadd_back(&first_node, ft_lstnew(ft_strdup("HELLO=quoi")));
-	ft_lstadd_back(&first_node, ft_lstnew(ft_strdup("VAR3=hey")));
-	ft_lstadd_back(&first_node, ft_lstnew(ft_strdup("VAR4=hey")));
+// 	ft_lstadd_back(&first_node, ft_lstnew(ft_strdup("HELLO=quoi")));
+// 	ft_lstadd_back(&first_node, ft_lstnew(ft_strdup("VAR3=hey")));
+// 	ft_lstadd_back(&first_node, ft_lstnew(ft_strdup("VAR4=hey")));
 
-	// remove_from_env("HELLO", &first_node);
-	// t_envp	env;
-	// t_list *tmp;
+// 	// remove_from_env("HELLO", &first_node);
+// 	// t_envp	env;
+// 	// t_list *tmp;
 
-	// if (create_env_lst(envp, &env))
-	// 	return (EXIT_FAILURE);
-	// if (convert_env_to_tab(&env))
-	// 	return (ft_lstclear(&(first_node)), EXIT_FAILURE);
+// 	// if (create_env_lst(envp, &env))
+// 	// 	return (EXIT_FAILURE);
+// 	// if (convert_env_to_tab(&env))
+// 	// 	return (ft_lstclear(&(first_node)), EXIT_FAILURE);
 
-	remove_from_env("HELLO=quoi", &first_node);
-	tmp = first_node;
-	while (tmp)
-	{
-		printf("%s\n", tmp->content);
-		tmp = tmp->next;
-	}
-	ft_lstclear(&first_node);
-	// ft_free_array(env.tab, ft_array_size(env.tab));
-}
+// 	remove_from_env("HELLO=quoi", &first_node);
+// 	tmp = first_node;
+// 	while (tmp)
+// 	{
+// 		printf("%s\n", tmp->content);
+// 		tmp = tmp->next;
+// 	}
+// 	ft_lstclear(&first_node);
+// 	// ft_free_array(env.tab, ft_array_size(env.tab));
+// }
