@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:04:10 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/10 15:20:01 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:30:06 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,25 +72,25 @@ int	do_pipe(int argc, char **argv, char **envp, t_fds_struct *fds, int index_cmd
 	return (EXIT_SUCCESS);
 }
 
-// int main (int argc, char **argv, char **envp) 
-// {	
-// 	int			i;
-// 	t_fds_struct *fds;
+int main (int argc, char **argv, char **envp) 
+{	
+	int			i;
+	t_fds_struct *fds;
 	
-// // 	if (!parsing(argc, argv))
-// // 		return (EXIT_FAILURE);
-// 	if (create_fds_struct(&fds, argv, argc))
+// 	if (!parsing(argc, argv))
 // 		return (EXIT_FAILURE);
-// 	dup_tmp_fd(&(fds->infile), fds, NULL, 0);
-// 	i = 1;
-// 	while (i++ < argc - 2)
-// 	{
-// 		if (do_pipe(argc, argv, envp, fds, i) == EXIT_FAILURE)
-// 			close_and_free(fds, 1);
-// 	}
-// 	i = -1;
-// 	while (i++ < argc - 4)
-// 		waitpid(fds->pid[i], NULL, 0);
-// 	close_and_free(fds, 0);
-// 	return (EXIT_SUCCESS);
-// }
+	if (create_fds_struct(&fds, argv, argc))
+		return (EXIT_FAILURE);
+	dup_tmp_fd(&(fds->infile), fds, NULL, 0);
+	i = 1;
+	while (i++ < argc - 2)
+	{
+		if (do_pipe(argc, argv, envp, fds, i) == EXIT_FAILURE)
+			close_and_free(fds, 1);
+	}
+	i = -1;
+	while (i++ < argc - 4)
+		waitpid(fds->pid[i], NULL, 0);
+	close_and_free(fds, 0);
+	return (EXIT_SUCCESS);
+}

@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:20:34 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/23 11:05:02 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:19:34 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,29 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+
+//PARSING
+typedef enum s_type
+{
+    WORD,
+    CMD,
+    ARG,
+    VAR,
+    PIPE,
+    HEREDOC,
+    REDIR_INPUT,
+    REDIR_OUTPUT,
+    APPEND
+}    t_type;
+
+typedef struct s_token
+{
+    char        *value;
+    t_type        type;
+    t_token        *next;
+} t_token;
+
+
 // NOTES //
 // Pour le moment, 2 choses a free : lst et tab de ma structure envp ci-dessous //
 
@@ -32,6 +55,19 @@ typedef struct s_envp {
 	char	**tab;			// on convertit en tab pour envoyer a execve
 } t_envp;
 
+typedef struct s_general {
+	t_list	*env_lst;			// on copie envp dans une liste chainee
+	char	**env_tab;	        // on convertit en tab pour envoyer a execve
+    t_cmd   *all_cmds;
+} t_general;
+
+typedef struct s_cmd {
+    char **cmd_args;
+    //redirections ?
+} t_cmd;
+
+
+//PIPEX
 typedef struct s_cmd_items {
 	char *arg;
 	char **cmd;
@@ -48,7 +84,7 @@ typedef struct s_fds {
 	int	tmp_fd;
 } t_fds_struct;
 
-//PIPEX.C
+//pipex.c
 // void exec_cmd(char **argv, t_cmd_items *cmd_items, int *input_file, int *next_pipe[2]);
 // int 	parsing(int argc, char **argv);
 // int	do_pipe(char **argv, char **envp, int index_cmd, int pid);
@@ -56,29 +92,29 @@ typedef struct s_fds {
 
 
 
-//CREATE_STRUCTS.C
+//create_structs.c
 int	create_fds_struct(t_fds_struct **fds, char **argv, int argc);
 int		create_pid_table(int **pid, int argc);
 int	open_files(int *infile, int *outfile, char **argv, int argc);
 int	create_cmd_items(t_cmd_items **cmd_items, char *argv_cmd, char **argv);
 
 
-//FREE.C
+//free.c
 int	ft_free_cmd_items(t_cmd_items **cmd_items);
 int	ft_free_fds_struct(t_fds_struct **fds);
 int	close_and_free(t_fds_struct *fds, int flag);
 
 
-//SAFE_FD_FUNCTIONS.C
+//safe_fd_functions.c
 void	safe_close(int fd, t_fds_struct **fds, t_cmd_items **cmd_items, int flag);
 void	dup_tmp_fd(int *previous_pipe, t_fds_struct *fds, t_cmd_items *cmd_items, int flag);
 
-//ENV
+//builtin_env
 int	create_env_lst(char **envp, t_envp *env);
 int	convert_env_to_tab(t_envp *env);
 char *get_path(char **envp, char *cmd);
 
-//
+//builtin_export
 t_list	*node_in_env(t_list *lst, char *var_and_value);
 size_t	len_until_equal_sign(char *str);
 int	check_valid_identifier(char *str);
