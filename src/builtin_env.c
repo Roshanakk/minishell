@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:16:36 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/19 20:09:11 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:15:28 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ char *get_path(char **envp, char *cmd)
 }
 
 //A GERER : PWD ET OLDPWD
-int	create_env_lst(char **envp, t_envp *env)
+
+int	create_env_lst(char **envp, t_general *general)
 {
 	int		i;
 	char 	*envp_i;
@@ -54,8 +55,8 @@ int	create_env_lst(char **envp, t_envp *env)
 	envp_i = ft_strdup(envp[i]);
 	if (!envp_i)
 		return (EXIT_FAILURE);
-	env->lst = ft_lstnew(envp_i);
-	if (!env->lst)
+	general->env_lst = ft_lstnew(envp_i);
+	if (!general->env_lst)
 		return (EXIT_FAILURE);
 	while (envp[++i])
 	{
@@ -66,54 +67,53 @@ int	create_env_lst(char **envp, t_envp *env)
 		new_node = ft_lstnew(envp_i);
 		if (!new_node)
 			return (EXIT_FAILURE);		
-		ft_lstadd_back(&(env->lst), new_node);
+		ft_lstadd_back(&(general->env_lst), new_node);
 	}
 	return (EXIT_SUCCESS);
 }
 
-//A APPELER POUR MAJ (POUR CHAQUE MODIF DE ENV)
-int	convert_env_to_tab(t_envp *env)
+int	convert_env_to_tab(t_general *general)
 {
 	int		i;
 	t_list	*node;
 
-	env->tab = ft_calloc(sizeof(char *), ft_lstsize(env->lst) + 1);
-	if (!env->tab)
+	general->env_tab = ft_calloc(sizeof(char *), ft_lstsize(general->env_lst) + 1);
+	if (!general->env_tab)
 		return (EXIT_FAILURE);
 	i = 0;
-	node = env->lst;
+	node = general->env_lst;
 	while (node)
 	{
-		env->tab[i] = ft_strdup(node->content);
-		if (!env->tab[i])
+		general->env_tab[i] = ft_strdup(node->content);
+		if (!general->env_tab[i])
 			return (EXIT_FAILURE);
 		i++;
 		node = node->next;
 	}
-	env->tab[i] = NULL;
+	general->env_tab[i] = NULL;
 	return (EXIT_SUCCESS);
 }
 
 // int main(int argc, char **argv, char **envp)
 // {
-// 	t_envp	env;
+// 	t_general	general;
 
 // 	// if (!ft_strcmp(argv[1], "env"))
 // 		// env->lst = create_env->lst(envp);
 // 	// printf("OK");
-// 	if (create_env_lst(envp, &env))
+// 	if (create_env_lst(envp, &general))
 // 		return (EXIT_FAILURE);
-// 	if (convert_env_to_tab(&env))
-// 		return (ft_lstclear(&(env.lst)), EXIT_FAILURE);
+// 	if (convert_env_to_tab(&general))
+// 		return (ft_lstclear(&(general.env_lst)), EXIT_FAILURE);
 	
 // 	int i = 0;
-// 	while (i < ft_lstsize(env.lst))
+// 	while (i < ft_lstsize(general.env_lst))
 // 	{
-// 		printf("%s\n", env.tab[i]);
+// 		printf("%s\n", general.env_tab[i]);
 // 		i++;
 // 	}
-// 	ft_free_array(env.tab, ft_lstsize(env.lst) - 1);
-// 	ft_lstclear(&(env.lst));
+// 	ft_free_array(general.env_tab, ft_lstsize(general.env_lst) - 1);
+// 	ft_lstclear(&(general.env_lst));
 // 	return (0);
 	
 // }

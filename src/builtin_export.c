@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 11:04:58 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/20 16:09:11 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:59:31 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,20 +115,20 @@ t_list	*node_in_env(t_list *lst, char *var_and_value)
 
 /* arg[0] = "export" ; je recois les var d'env sans les guillemets */
 
-int	add_to_env(t_envp *env, char *var_and_value, int concatenate)
+int	add_to_env(t_general *general, char *var_and_value, int concatenate)
 {
 	int	i;
 	t_list *var_exists;
 	t_list	*new_node;
 
-	var_exists = node_in_env(env->lst, var_and_value);
+	var_exists = node_in_env(general->env_lst, var_and_value);
 	i = 0;
 	if (!var_exists)
 	{
 		new_node = ft_lstnew(ft_strdup(var_and_value));
 		if (!new_node)
 			return (EXIT_FAILURE);
-		ft_lstadd_back(&(env->lst), new_node);
+		ft_lstadd_back(&(general->env_lst), new_node);
 	}
 	else
 	{
@@ -142,8 +142,8 @@ int	add_to_env(t_envp *env, char *var_and_value, int concatenate)
 		if (!var_exists->content)
 			return (EXIT_FAILURE);
 	}
-	ft_free_array(env->tab, ft_array_size(env->tab));
-	convert_env_to_tab(env);
+	ft_free_array(general->env_tab, ft_array_size(general->env_tab));
+	convert_env_to_tab(general);
 	return (EXIT_SUCCESS);
 }
 
@@ -170,14 +170,15 @@ int	is_not_underscore(char *str)
 // la condition "else if (len_until_equal_sign(args[i]) ...)" 
 // permet de verifier qu'il y a un signe '=' 
 // sans signe '=', pas d'export
-int run_export(char **args, t_envp *env)
+
+int run_export(char **args, t_general *general)
 {
 	int	i;
 	int concatenate;
 
 	if (!args[1])
 	{
-		sort_and_print(env->tab);
+		sort_and_print(general->env_tab);
 		return (1);
 	}
 	i = 1;
@@ -192,7 +193,7 @@ int run_export(char **args, t_envp *env)
 		else if (len_until_equal_sign(args[i]) && is_not_underscore(args[i]))
 		{
 			concatenate = check_for_plus_sign(args[i]);
-			add_to_env(env, args[i], concatenate);
+			add_to_env(general, args[i], concatenate);
 		}
 		i++;
 	}
@@ -201,21 +202,21 @@ int run_export(char **args, t_envp *env)
 
 // int main(int argc, char **argv, char **envp)
 // {
-// 	t_envp env;
+// 	t_general general;
 
-// 	if (create_env_lst(envp + 51, &env))
+// 	if (create_env_lst(envp, &general))
 // 		return (EXIT_FAILURE);
-// 	if (convert_env_to_tab(&env))
-// 		return (ft_lstclear(&(env.lst)), EXIT_FAILURE);
+// 	if (convert_env_to_tab(&general))
+// 		return (ft_lstclear(&(general.env_lst)), EXIT_FAILURE);
 
 // 	// char str[] = "OUI===";
 // 	// if (len_until_equal_sign(str))
-// 	// 	add_to_env(&env, str, 0);
+// 	// 	add_to_env(&general, str, 0);
 // 	// char str1[] = "OUI=COUCOU";
 // 	// if (len_until_equal_sign(str1))
-// 	// 	add_to_env(&env, str1, 0);
-// 	run_export(argv, &env);
-// 	// t_list *tmp = env.lst;
+// 	// 	add_to_env(&general, str1, 0);
+// 	run_export(argv, &general);
+// 	// t_list *tmp = general.env_lst;
 	
 // 	// while (tmp)
 // 	// {
@@ -223,12 +224,12 @@ int run_export(char **args, t_envp *env)
 // 	// 	tmp = tmp->next;
 // 	// }
 // 	int i = 0;
-// 	while (env.tab[i])
+// 	while (general.env_tab[i])
 // 	{
-// 		printf("%s\n", env.tab[i]);
+// 		printf("%s\n", general.env_tab[i]);
 // 		i++;
 // 	}
-// 	ft_free_array(env.tab, ft_array_size(env.tab));
-// 	ft_lstclear(&(env.lst));
+// 	ft_free_array(general.env_tab, ft_array_size(general.env_tab));
+// 	ft_lstclear(&(general.env_lst));
 // }
 

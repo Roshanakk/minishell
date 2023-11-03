@@ -8,6 +8,8 @@ SRC = main.c \
 	builtin_echo.c \
 	builtin_export.c \
 	builtin_unset.c \
+	test_call_exec.c \
+	lst_token.c \
 
 OBJ = ${SRC:.c=.o}
 
@@ -17,7 +19,7 @@ OBJ_FILES = $(addprefix $(OBJ_PATH)/,$(OBJ))
 # %.o: %.c
 # 	${CC} ${CFLAGS} $< -o $@
 
-CC = cc
+CC = gcc
 
 DEBUG = -fsanitize=address,leak
 

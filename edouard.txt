@@ -1,1 +1,10 @@
- je suis dans le bendo ouaaaaaaaaaaaais dans la nuit noire je pleure des larmes de glace pas une lueur d'espoir la ou je passe
+albert.txt
+cmp_bash.txt
+cmp_minishell.txt
+edouard.txt
+felise_pia.c
+libft
+Makefile
+minishell_exec
+obj
+src

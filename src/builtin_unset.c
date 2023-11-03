@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:04:52 by azarraffi         #+#    #+#             */
-/*   Updated: 2023/10/23 14:30:21 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:00:07 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,11 @@ int	run_unset(char **args, t_envp *env)
 // 	ft_lstadd_back(&first_node, ft_lstnew(ft_strdup("VAR4=hey")));
 
 // 	// remove_from_env("HELLO", &first_node);
-// 	// t_envp	env;
-// 	// t_list *tmp;
+// 	// t_general general;
 
-// 	// if (create_env_lst(envp, &env))
+// 	// if (create_env_lst(envp, &general))
 // 	// 	return (EXIT_FAILURE);
-// 	// if (convert_env_to_tab(&env))
+// 	// if (convert_env_to_tab(&general))
 // 	// 	return (ft_lstclear(&(first_node)), EXIT_FAILURE);
 
 // 	remove_from_env("HELLO=quoi", &first_node);

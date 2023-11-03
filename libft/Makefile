@@ -34,7 +34,7 @@ OBJ_PATH = ./obj
 SRC_FILES = $(addprefix $(SRC_PATH)/,$(SRC))
 OBJ_FILES = $(addprefix $(OBJ_PATH)/,$(OBJS))
 
-CC = cc
+CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
