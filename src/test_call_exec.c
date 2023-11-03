@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:31:10 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/03 17:43:00 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/03 18:02:23 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,36 @@ int	ft_cmdline_size(t_token *cmdline)
 	return (i);
 }
 
-int	ft_malloc_cmd_features(t_cmd *cmd_node)
+// int	ft_malloc_cmd_features(t_general *general, int i)
+// {
+// 	int	len_of_cmd;
+
+// 	//ft len_of_cmd
+// 	len_of_cmd = 3;
+// 	general->all_cmds[i].cmd = ft_calloc(sizeof(char *), len_of_cmd + 1);
+// 	if (!(general->all_cmds[i].cmd))
+// 		return (EXIT_FAILURE);
+		
+// 	// cmd_node->redir = malloc(sizeof(char *) * 1);
+// 	// if (!(cmd_node->redir))
+// 	// 	return (EXIT_FAILURE);
+
+// 	// cmd_node->redir_type = malloc(sizeof(e_token_types) * 1);
+// 	// if (!(cmd_node->redir_type))
+// 	// 	return (EXIT_FAILURE);	
+// 	return (EXIT_SUCCESS);
+// }
+
+int	ft_malloc_cmd_features(t_cmd *all_cmds_i)
 {
 	int	len_of_cmd;
 
 	//ft len_of_cmd
 	len_of_cmd = 3;
-	cmd_node->cmd = ft_calloc(sizeof(char *), len_of_cmd);
-	if (!cmd_node->cmd)
+	all_cmds_i->cmd = ft_calloc(sizeof(char *), len_of_cmd + 1);
+	if (!all_cmds_i->cmd)
 		return (EXIT_FAILURE);
-
+		
 	// cmd_node->redir = malloc(sizeof(char *) * 1);
 	// if (!(cmd_node->redir))
 	// 	return (EXIT_FAILURE);
@@ -79,6 +99,7 @@ int	ft_malloc_cmd_features(t_cmd *cmd_node)
 	// cmd_node->redir_type = malloc(sizeof(e_token_types) * 1);
 	// if (!(cmd_node->redir_type))
 	// 	return (EXIT_FAILURE);	
+	return (EXIT_SUCCESS);
 }
 
 int	file_exists(char *file_name)
@@ -115,29 +136,77 @@ int read_token_lst(t_general *general, t_token *cmdline)
 	{
 		j = 0;
 		//CALCULER LEN_OF_CMD
-		len_of_cmd = 4;
-		general->all_cmds[i].cmd = ft_calloc(sizeof(char *), len_of_cmd + 1);
-		if (!(general->all_cmds[i].cmd))
+		if (ft_malloc_cmd_features(general->all_cmds + i))
 			return (EXIT_FAILURE);
+		// len_of_cmd = 3;
+		// general->all_cmds[i].cmd = ft_calloc(sizeof(char *), len_of_cmd + 1);
+		// if (!(general->all_cmds[i].cmd))
+			// return (EXIT_FAILURE);
+
 		while (token && token->type != PIPE)
 		{
-			// if (!ft_malloc_cmd_features(general->all_cmds + i))
-			// 	return (EXIT_FAILURE);
 			
-			general->all_cmds[i].cmd[j] = token->value;
-			token = token->next;
-			// if (token->type == WORD)
+			// if (token->type == REDIR_IN)
 			// {
-			// 	general->all_cmds[i].cmd[l] = token->value;
-			// 	l++;
+			// 	general->all_cmds[i].redir[j] = token->value;
 			// }
-			// general->all_cmds[i].cmd[l] = NULL;
-			j++;
+			
+			if (token->type == WORD)
+			{
+				general->all_cmds[i].cmd[j] = token->value;
+				j++;
+			}
+			token = token->next;
 		}
 		general->all_cmds[i].cmd[j] = NULL;
 		i++;
 	}
 }
+
+// int read_token_lst(t_general *general, t_token *cmdline)
+// {
+// 	t_token	*token;
+// 	int		i;
+// 	int 	len_of_cmd;
+// 	int		j;
+// 	int		l;
+
+// 	int nb_of_cmds = ft_cmdline_size(cmdline);
+// 	general->all_cmds = malloc(sizeof(t_cmd) * nb_of_cmds);
+// 	if (!general->all_cmds)
+// 		return (EXIT_FAILURE);
+
+// 	i = 0;
+	
+// 	// l = 0;
+// 	token = cmdline;
+// 	while (token)
+// 	{
+// 		j = 0;
+// 		//CALCULER LEN_OF_CMD
+// 		len_of_cmd = 4;
+// 		general->all_cmds[i].cmd = ft_calloc(sizeof(char *), len_of_cmd + 1);
+// 		if (!(general->all_cmds[i].cmd))
+// 			return (EXIT_FAILURE);
+// 		while (token && token->type != PIPE)
+// 		{
+// 			// if (!ft_malloc_cmd_features(general->all_cmds + i))
+// 			// 	return (EXIT_FAILURE);
+			
+// 			general->all_cmds[i].cmd[j] = token->value;
+// 			token = token->next;
+// 			// if (token->type == WORD)
+// 			// {
+// 			// 	general->all_cmds[i].cmd[l] = token->value;
+// 			// 	l++;
+// 			// }
+// 			// general->all_cmds[i].cmd[l] = NULL;
+// 			j++;
+// 		}
+// 		general->all_cmds[i].cmd[j] = NULL;
+// 		i++;
+// 	}
+// }
 
 void	ft_free_general(t_general *general)
 {
