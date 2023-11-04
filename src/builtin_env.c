@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:16:36 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/10/31 14:15:28 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/04 19:08:34 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	convert_env_to_tab(t_general *general)
 // {
 // 	t_general	general;
 
+// 	general = (t_general){0};
 // 	// if (!ft_strcmp(argv[1], "env"))
 // 		// env->lst = create_env->lst(envp);
 // 	// printf("OK");

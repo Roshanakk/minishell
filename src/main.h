@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:20:34 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/03 11:09:35 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/04 18:43:57 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,16 @@ int	check_valid_identifier(char *str);
 t_token	*create_token_list(char *token, e_token_types type);
 void	insert_at_end(t_token **head, char *str, e_token_types type);
 void	ft_token_lst_clear(t_token **lst);
+
+//test_call_exec.c
+int		ft_nb_of_cmds(t_token *cmdline);
+int		ft_nb_of_pipes(t_token *token);
+int		ft_len_of_cmd(t_token *token);
+int 	ft_nb_of_redirs_in(t_token *token);
+int 	ft_nb_of_redirs_out(t_token *token);
+int		ft_malloc_cmd_i(t_cmd *all_cmds_i, t_token *token);
+int 	read_token_lst(t_general *general, t_token *cmdline);
+void	ft_free_general(t_general *general);
 
 
 #endif

@@ -8,6 +8,7 @@ SRC = main.c \
 	builtin_echo.c \
 	builtin_export.c \
 	builtin_unset.c \
+	builtin_exit.c \
 	test_call_exec.c \
 	lst_token.c \
 
