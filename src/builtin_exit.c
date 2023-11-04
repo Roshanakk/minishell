@@ -6,17 +6,21 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:41:40 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/04 19:13:00 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/04 19:24:20 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void		ft_exit(t_general *general)
+
+//QUAND UTILISER FT_EXIT ? uniquement pour 
+//builtin exit ou aussi en cas d'echec de malloc etc ?
+void		ft_exit(t_general *general, int return_error)
 {
 	int	status;
 	int	i;
 
+	//est-ce que int return_error est utile ? pour g_status ?
 	//remplacer par g_status
 	status = 1;
 	if (general->env_tab)
@@ -32,10 +36,8 @@ void		ft_exit(t_general *general)
 			free((general->all_cmds + i)->redir);
 			free((general->all_cmds + i)->redir_type);
 			i++;
-			printf("on a free les features de all_cmds\n");
 		}
 		free(general->all_cmds);
-		printf("on a free all_cmds\n");
 	}
 	if (general->cmdline)
 		ft_token_lst_clear(&general->cmdline);
@@ -54,25 +56,25 @@ void		ft_exit(t_general *general)
 // 	return (0);
 // }
 
-int main(int argc, char**argv, char **envp)
-{
-	t_general general;
+// int main(int argc, char**argv, char **envp)
+// {
+// 	t_general general;
 
-	general = (t_general){0};
-	if (create_env_lst(envp, &general))
-		return (EXIT_FAILURE);
- 	general.cmdline = create_token_list("infile1", REDIR_IN);
-	insert_at_end(&general.cmdline, "echo", WORD);
-	insert_at_end(&general.cmdline, "-n", WORD);
-	insert_at_end(&general.cmdline, "bonjour", WORD);
-	insert_at_end(&general.cmdline, "helm.txt", REDIR_OUT);
-	// insert_at_end(&general.cmdline, "bonjour", PIPE);
-	// insert_at_end(&general.cmdline, "cat", WORD);
-	// insert_at_end(&general.cmdline, "helm.txt", REDIR_OUT);
+// 	general = (t_general){0};
+// 	if (create_env_lst(envp, &general))
+// 		return (EXIT_FAILURE);
+//  	general.cmdline = create_token_list("infile1", REDIR_IN);
+// 	insert_at_end(&general.cmdline, "echo", WORD);
+// 	insert_at_end(&general.cmdline, "-n", WORD);
+// 	insert_at_end(&general.cmdline, "bonjour", WORD);
+// 	insert_at_end(&general.cmdline, "helm.txt", REDIR_OUT);
+// 	// insert_at_end(&general.cmdline, "bonjour", PIPE);
+// 	// insert_at_end(&general.cmdline, "cat", WORD);
+// 	// insert_at_end(&general.cmdline, "helm.txt", REDIR_OUT);
 	
-	read_token_lst(&general, general.cmdline);
+// 	read_token_lst(&general, general.cmdline);
 
-	ft_exit(&general);
+// 	ft_exit(&general);
 
-	return 0;
-}
+// 	return 0;
+// }

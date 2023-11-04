@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:20:34 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/04 18:43:57 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/04 19:19:16 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,9 @@ void	dup_tmp_fd(int *previous_pipe, t_fds_struct *fds, t_cmd_items *cmd_items, i
 int	create_env_lst(char **envp, t_general *general);
 int	convert_env_to_tab(t_general *general);
 char *get_path(char **envp, char *cmd);
+
+//builtin_exit.c
+void		ft_exit(t_general *general, int return_error);
 
 //builtin_export
 t_list	*node_in_env(t_list *lst, char *var_and_value);
