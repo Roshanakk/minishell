@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:31:10 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/03 19:15:10 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/04 15:23:56 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int ft_nb_of_redirs_in(t_token *token)
 	nb_of_redirs_in = 0;
 	while (tmp && tmp->type != PIPE)
 	{
-		while (tmp && tmp->type != REDIR_IN)
+		while (tmp && tmp->type != REDIR_IN && tmp->type != PIPE)
 			tmp = tmp->next;
 		while (tmp && tmp->type == REDIR_IN)
 		{
@@ -213,20 +213,16 @@ void	ft_free_general(t_general *general)
 int main(int argc, char**argv, char **envp)
 {
 	t_general general;
- 	general.cmdline = create_token_list("echo", WORD);
-	insert_at_end(&general.cmdline, "-n", WORD);
-	insert_at_end(&general.cmdline, "bonjour", WORD);
-	insert_at_end(&general.cmdline, "helm", REDIR_IN);
-	insert_at_end(&general.cmdline, "rohan", REDIR_IN);
-	insert_at_end(&general.cmdline, "PIPE", PIPE);
-	insert_at_end(&general.cmdline, "grep", WORD);
-	insert_at_end(&general.cmdline, "edou", WORD);
-	insert_at_end(&general.cmdline, "PIPE", PIPE);
-	insert_at_end(&general.cmdline, "gondor", REDIR_IN);
+ 	general.cmdline = create_token_list("echo", REDIR_IN);
+	// insert_at_end(&general.cmdline, "-n", WORD);
+	// insert_at_end(&general.cmdline, "bonjour", WORD);
+	// insert_at_end(&general.cmdline, "bonjour", PIPE);
+	// insert_at_end(&general.cmdline, "helm", REDIR_IN);
+	// insert_at_end(&general.cmdline, "rohan", REDIR_IN);
 
-	
-	printf("%s - %d\n", general.cmdline->value, ft_nb_of_redirs_in(general.cmdline));
-	printf("%s - %d\n", general.cmdline->next->next->next->next->value, ft_nb_of_redirs_in(general.cmdline->next->next->next));
+	// printf("%s - %d\n", general.cmdline->value, ft_nb_of_redirs_in(general.cmdline));
+	// printf("%s - %d\n", general.cmdline->next->next->value, 
+	// 	ft_nb_of_redirs_in(general.cmdline->next->next));
 	
 	// read_token_lst(&general, general.cmdline);
 
