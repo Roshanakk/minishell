@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_call_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azarraffi <azarraffi@student.42.fr>        +#+  +:+       +#+        */
+/*   By: Roxy <Roxy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:31:10 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/05 11:29:18 by azarraffi        ###   ########.fr       */
+/*   Updated: 2023/11/05 21:19:00 by Roxy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,17 +229,16 @@ int read_token_lst(t_general *general, t_token *cmdline)
 				general->all_cmds[i].redir[l] = token->value;
 				general->all_cmds[i].redir_type[l] = token->type;
 				l++;
-			}
-			
+			}	
 			if (token->type == WORD)
 			{
 				general->all_cmds[i].cmd[j] = token->value;
 				j++;
 			}
-			//finir expand_env_var
+			//est-ce que getenv ok ?
 			if (token->type == VAR)
 			{
-				general->all_cmds[i].cmd[j] = expand_env_var(token->value, general->env_lst);
+				general->all_cmds[i].cmd[j] = getenv(token->value);
 				j++;
 			}
 			token = token->next;
