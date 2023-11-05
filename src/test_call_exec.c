@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_call_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azarraffi <azarraffi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:31:10 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/04 19:23:34 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/05 11:29:18 by azarraffi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,12 @@ int read_token_lst(t_general *general, t_token *cmdline)
 				general->all_cmds[i].cmd[j] = token->value;
 				j++;
 			}
+			//finir expand_env_var
+			if (token->type == VAR)
+			{
+				general->all_cmds[i].cmd[j] = expand_env_var(token->value, general->env_lst);
+				j++;
+			}
 			token = token->next;
 		}
 		general->all_cmds[i].cmd[j] = NULL;
@@ -264,6 +270,7 @@ void	ft_free_general(t_general *general)
 	free(general->all_cmds);
 }
 
+/*
 int main(int argc, char**argv, char **envp)
 {
 	t_general general;
@@ -296,3 +303,4 @@ int main(int argc, char**argv, char **envp)
 
 	return 0;
 }
+*/
