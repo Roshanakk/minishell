@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:41:40 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/04 19:24:20 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/04 19:27:08 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 //QUAND UTILISER FT_EXIT ? uniquement pour 
 //builtin exit ou aussi en cas d'echec de malloc etc ?
+
+//en cas d'echec d'infile (inexistant) : on appelle ft_exit ?
 void		ft_exit(t_general *general, int return_error)
 {
 	int	status;
