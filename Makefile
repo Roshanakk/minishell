@@ -1,8 +1,8 @@
 NAME = minishell_exec
 
-SRC = main.c \
-	create_structs.c \
-	free.c \
+SRC = pipex_main.c \
+	pipex_create_structs.c \
+	pipex_free.c \
 	safe_fd_functions.c \
 	builtin_env.c \
 	builtin_echo.c \
@@ -11,6 +11,7 @@ SRC = main.c \
 	builtin_exit.c \
 	test_call_exec.c \
 	lst_token.c \
+	minishell.c \
 
 OBJ = ${SRC:.c=.o}
 

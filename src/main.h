@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:20:34 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/04 19:19:16 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:07:01 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ typedef struct s_cmd {
 } t_cmd;
 
 typedef struct s_pipe {
-	int		nb_pipes;
-	
+	__pid_t	pid;
 } t_pipe;
 
 typedef struct s_general {
@@ -72,6 +71,7 @@ typedef struct s_general {
 	t_cmd   *all_cmds;			//															FREE
 	t_pipe	*pipeline;			
 } t_general;
+
 
 //PIPEX
 typedef struct s_cmd_items {
@@ -140,7 +140,7 @@ int		ft_len_of_cmd(t_token *token);
 int 	ft_nb_of_redirs_in(t_token *token);
 int 	ft_nb_of_redirs_out(t_token *token);
 int		ft_malloc_cmd_i(t_cmd *all_cmds_i, t_token *token);
-int 	read_token_lst(t_general *general, t_token *cmdline);
+int 	convert_token_lst_to_tab(t_general *general, t_token *cmdline);
 void	ft_free_general(t_general *general);
 
 

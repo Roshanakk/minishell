@@ -1,0 +1,22 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    questions.txt                                      :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/11/05 11:14:29 by azarraffi         #+#    #+#              #
+#    Updated: 2023/11/06 15:58:25 by rraffi-k         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+FAIRE LA CONVERSION LST->TAB DE L'ENV DANS UNSET
+
+VOIR DANS BOUCLE WHILE DU MAIN DE BUILTIN_ENV : SI C'EST POSSIBLE D'ECRIRE SOUS FORME
+WHILE(ENV_TAB[i]) plutôt que WHILE(i < ...)
+
+est-ce que builtin_echo fonctionne avec $VAR qui est NULL ? 
+(cf get_env dans la conversion dans test_call_exec)
+
+est-ce que le parsing verifie si les infile existent ?
+/ si les outfile existent ? (et est-ce qu'il cree les outfile non existants ?)
