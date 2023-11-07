@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:41:40 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/04 19:27:08 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:30:03 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void		ft_exit(t_general *general, int return_error)
 		while (i < ft_nb_of_pipes(general->cmdline) + 1)
 		{
 			free((general->all_cmds + i)->cmd);
-			free((general->all_cmds + i)->redir);
-			free((general->all_cmds + i)->redir_type);
+			free((general->all_cmds + i)->redir_in);
+			free((general->all_cmds + i)->redir_out);
 			i++;
 		}
 		free(general->all_cmds);

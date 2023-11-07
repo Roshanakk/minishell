@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:20:34 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/07 10:34:25 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:27:17 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ typedef struct s_envp {
 
 typedef struct s_cmd {
 	char **cmd;				//																FREE
-	char **redir;			//contient "value" (t_token) de la redirection					FREE
-	e_token_types *redir_type;		//contient "type" (t_token) de la redirection					FREE
+	char **redir_in;			//contient "value" (t_token) de la redirection					FREE
+	char **redir_out;			//contient "value" (t_token) de la redirection					FREE
+	// e_token_types *redir_type;		//contient "type" (t_token) de la redirection					FREE
 	
 } t_cmd;
 
@@ -114,7 +115,7 @@ int	close_and_free(t_fds_struct *fds, int flag);
 
 
 //safe_fd_functions.c
-void	safe_close(int fd, t_fds_struct **fds, t_cmd_items **cmd_items, int flag);
+void	ft_close(int fd, t_fds_struct **fds, t_cmd_items **cmd_items, int flag);
 void	dup_tmp_fd(int *previous_pipe, t_fds_struct *fds, t_cmd_items *cmd_items, int flag);
 
 //builtin_env
@@ -135,6 +136,12 @@ int	check_valid_identifier(char *str);
 t_token	*create_token_list(char *token, e_token_types type);
 void	insert_at_end(t_token **head, char *str, e_token_types type);
 void	ft_token_lst_clear(t_token **lst);
+
+//minishell.c
+int	redirect_io_files(t_general *general, t_pipe *pipeline, t_cmd *cmd);
+
+//redirections.c
+void	safe_close(int fd, t_general *general);
 
 //test_call_exec.c
 int		ft_nb_of_cmds(t_token *cmdline);

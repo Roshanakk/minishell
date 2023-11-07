@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:46:24 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/06 16:43:12 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:44:37 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	ft_free_general(t_general *general)
 		while (i < ft_nb_of_pipes(general->cmdline) + 1)
 		{
 			free((general->all_cmds + i)->cmd);
-			free((general->all_cmds + i)->redir);
-			free((general->all_cmds + i)->redir_type);
+			free((general->all_cmds + i)->redir_in);
+			free((general->all_cmds + i)->redir_out);
 			i++;
 		}
 		ft_token_lst_clear(&general->cmdline);
@@ -50,51 +50,51 @@ int	ft_nb_pipes(t_token *cmdline)
 	return (i);
 }
 
-int	execute_cmd(t_general *general, t_cmd *cmd)
+int	execute_cmd(t_general *general, t_cmd *cmd_i)
 {
 	//redirections des fichiers infile et outfile
-	redirect_io_files(general, cmd);
+	redirect_io_files(general, general->pipeline, cmd_i);
 	//executer builtin si la cmd est un builtin
-
+	execve("/usr/bin/pwd", cmd_i->cmd, NULL);
 	//executer bin si la cmd est un bin
+	// ft_printf("on revient la\n");
 	return (EXIT_FAILURE);
 }
 
-int execute_cmdline(t_general *general, t_cmd *all_cmds, t_pipe *pipeline)
-{
-	t_token *tmp;
-	int		i;
-	int		nb_of_pipes;
-	int		nb_of_children;
+// int execute_cmdline(t_general *general, t_cmd *all_cmds, t_pipe *pipeline)
+// {
+// 	t_token *tmp;
+// 	int		i;
+// 	int		nb_of_pipes;
+// 	int		nb_of_children;
 
-	nb_of_pipes = ft_nb_of_pipes(general->cmdline);
-	nb_of_children = nb_of_pipes + 1;
+// 	nb_of_pipes = ft_nb_of_pipes(general->cmdline);
+// 	nb_of_children = nb_of_pipes + 1;
 	
-	i = 0;
-	while (i < nb_of_children)
-	{
-		pipeline->pid = fork();
-		if (pipeline->pid < 0)
-			return (EXIT_FAILURE);
-		else if (pipeline->pid == 0)
-			execute_cmd(general, all_cmds + i);
-		i++;
-	}
-
-}
+// 	i = 0;
+// 	// while (i < nb_of_children)
+// 	// {
+// 		pipeline->pid = fork();
+// 		if (pipeline->pid < 0)
+// 			return (EXIT_FAILURE);
+// 		else if (pipeline->pid == 0)
+// 			execute_cmd(general, all_cmds + i);
+// 	// 	i++;
+// 	// }
+// }
 
 int minishell(t_general *general)
 {
 	//PARSING : CREATION DE LA LISTE DE TOKENS
-	general->cmdline = create_token_list("edouard.txt", REDIR_IN);
-	insert_at_end(&general->cmdline, "grep", WORD);
-	insert_at_end(&general->cmdline, "bonjour", WORD);
-	insert_at_end(&general->cmdline, "|", PIPE);
-	insert_at_end(&general->cmdline, "cat", WORD);
-	insert_at_end(&general->cmdline, "outfile", REDIR_OUT);
+	// general->cmdline = create_token_list("edouard.txt", REDIR_IN);
+	// insert_at_end(&general->cmdline, "grep", WORD);
+	// insert_at_end(&general->cmdline, "bonjour", WORD);
+	// insert_at_end(&general->cmdline, "|", PIPE);
+	// insert_at_end(&general->cmdline, "cat", WORD);
+	// insert_at_end(&general->cmdline, "outfile", REDIR_OUT);
 
 	//CONVERSION EN TABLEAU
-	convert_token_lst_to_tab(general, general->cmdline);
+	// convert_token_lst_to_tab(general, general->cmdline);
 
 	//PREP_EXECUTION
 	general->pipeline = malloc(sizeof(t_pipe));
@@ -102,10 +102,11 @@ int minishell(t_general *general)
 		return (EXIT_FAILURE);
 	
 	//EXECUTION
-	execute_cmdline(general, general->all_cmds, general->pipeline);
+	// execute_cmdline(general, general->all_cmds, general->pipeline);
+	execute_cmd(general, general->all_cmds);
 
 	//TEST
-	printf("%d\n", general->pipeline->pid);
+	// printf("%d\n", general->pipeline->pid);
 
 	//FREE
 	ft_free_general(general);
@@ -121,25 +122,24 @@ int minishell(t_general *general)
     
 }
 
-// int main(int argc, char **argv, char **envp)
-// {
-// 	t_general general;
+int main(int argc, char **argv, char **envp)
+{
+	t_general general;
 
-// 	general = (t_general){0};
-// 	minishell(&general);
-// 	// //PARSING : CREATION DE LA LISTE DE TOKENS
-// 	// general.cmdline = create_token_list("edouard.txt", REDIR_IN);
-// 	// insert_at_end(&general.cmdline, "grep", WORD);
-// 	// insert_at_end(&general.cmdline, "bonjour", WORD);
-// 	// insert_at_end(&general.cmdline, "|", PIPE);
-// 	// insert_at_end(&general.cmdline, "cat", WORD);
-// 	// insert_at_end(&general.cmdline, "outfile", REDIR_OUT);
+	general = (t_general){0};
+	// //PARSING : CREATION DE LA LISTE DE TOKENS
+	general.cmdline = create_token_list("infile1.txt", REDIR_IN);
+	insert_at_end(&general.cmdline, "echo", WORD);
+	insert_at_end(&general.cmdline, "outfile1", REDIR_OUT);
+	
 
-// 	// //CONVERSION EN TABLEAU
-// 	// convert_token_lst_to_tab(&general, general.cmdline);
+	// //CONVERSION EN TABLEAU
+	convert_token_lst_to_tab(&general, general.cmdline);
 
-// 	// //EXECUTION
-// 	// execute_cmdline(&general);
-// 	// printf("%d\n", general.pipeline->pid);
-// 	return (0);
-// }
+	minishell(&general);
+	
+	// //EXECUTION
+	// execute_cmdline(&general);
+	// printf("%d\n", general.pipeline->pid);
+	return (0);
+}

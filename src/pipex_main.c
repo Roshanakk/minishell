@@ -6,71 +6,71 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:04:10 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/06 15:32:36 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/07 14:37:36 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int exec_cmd(t_fds_struct *fds, t_cmd_items *cmd_items, int *input_pipe, int *next_pipe)
-{
-	if (dup2(*input_pipe, STDIN_FILENO) == -1 
-		|| dup2(*next_pipe, STDOUT_FILENO) == -1)
-	{
-		safe_close(fds->infile, &fds, &cmd_items, 1);
-		if (fds->infile != fds->tmp_fd)
-			safe_close(fds->tmp_fd, &fds, &cmd_items, 1);
-		safe_close(fds->outfile, &fds, &cmd_items, 1);
-		safe_close(fds->pipefd[0], &fds, &cmd_items, 1);
-		safe_close(fds->pipefd[1], &fds, &cmd_items, 1);
-		ft_free_cmd_items(&cmd_items);
-		ft_free_fds_struct(&fds);
-		exit (EXIT_FAILURE);
-	}
-	return(execve(cmd_items->path, cmd_items->cmd, NULL));		
-}
-
-// int parsing(int argc, char **argv)
+// int exec_cmd(t_fds_struct *fds, t_cmd_items *cmd_items, int *input_pipe, int *next_pipe)
 // {
-// 	if (argc < 5)
-// 		return (1);
-// 	else
-// 		return (0);
+// 	if (dup2(*input_pipe, STDIN_FILENO) == -1 
+// 		|| dup2(*next_pipe, STDOUT_FILENO) == -1)
+// 	{
+// 		safe_close(fds->infile, &fds, &cmd_items, 1);
+// 		if (fds->infile != fds->tmp_fd)
+// 			safe_close(fds->tmp_fd, &fds, &cmd_items, 1);
+// 		safe_close(fds->outfile, &fds, &cmd_items, 1);
+// 		safe_close(fds->pipefd[0], &fds, &cmd_items, 1);
+// 		safe_close(fds->pipefd[1], &fds, &cmd_items, 1);
+// 		ft_free_cmd_items(&cmd_items);
+// 		ft_free_fds_struct(&fds);
+// 		exit (EXIT_FAILURE);
+// 	}
+// 	return(execve(cmd_items->path, cmd_items->cmd, NULL));		
 // }
 
-void	close_pipe_and_new_tmp(int argc, t_fds_struct *fds, t_cmd_items *cmd_items, int index_cmd)
-{
-	safe_close(fds->pipefd[1], &fds, &cmd_items, 1);
-	safe_close(fds->tmp_fd, &fds, &cmd_items, 1);
-	if (index_cmd < argc - 2)
-		dup_tmp_fd(&(fds->pipefd[0]), fds, cmd_items, 1);
-	safe_close(fds->pipefd[0], &fds, &cmd_items, 1);
-	ft_free_cmd_items(&cmd_items);	
-}
+// // int parsing(int argc, char **argv)
+// // {
+// // 	if (argc < 5)
+// // 		return (1);
+// // 	else
+// // 		return (0);
+// // }
 
-int	do_pipe(int argc, char **argv, char **envp, t_fds_struct *fds, int index_cmd)
-{
-	t_cmd_items *cmd_items;
-	int i;
+// void	close_pipe_and_new_tmp(int argc, t_fds_struct *fds, t_cmd_items *cmd_items, int index_cmd)
+// {
+// 	safe_close(fds->pipefd[1], &fds, &cmd_items, 1);
+// 	safe_close(fds->tmp_fd, &fds, &cmd_items, 1);
+// 	if (index_cmd < argc - 2)
+// 		dup_tmp_fd(&(fds->pipefd[0]), fds, cmd_items, 1);
+// 	safe_close(fds->pipefd[0], &fds, &cmd_items, 1);
+// 	ft_free_cmd_items(&cmd_items);	
+// }
 
-	i = index_cmd - 2;
-	if (pipe(fds->pipefd) == -1)
-		return (EXIT_FAILURE);
-	if (create_cmd_items(&cmd_items, argv[index_cmd], argv))
-		return (EXIT_FAILURE);
-	fds->pid[i] = fork();
-	if (fds->pid[i] < 0)
-		return (ft_free_cmd_items(&cmd_items));
-	if (fds->pid[i] == 0)
-	{
-		if (index_cmd < argc - 2)
-			exec_cmd(fds, cmd_items, &(fds->tmp_fd), &(fds->pipefd[1]));
-		else if (index_cmd == argc - 2)
-			exec_cmd(fds, cmd_items, &(fds->tmp_fd), &(fds->outfile));
-	}
-	close_pipe_and_new_tmp(argc, fds, cmd_items, index_cmd);
-	return (EXIT_SUCCESS);
-}
+// int	do_pipe(int argc, char **argv, char **envp, t_fds_struct *fds, int index_cmd)
+// {
+// 	t_cmd_items *cmd_items;
+// 	int i;
+
+// 	i = index_cmd - 2;
+// 	if (pipe(fds->pipefd) == -1)
+// 		return (EXIT_FAILURE);
+// 	if (create_cmd_items(&cmd_items, argv[index_cmd], argv))
+// 		return (EXIT_FAILURE);
+// 	fds->pid[i] = fork();
+// 	if (fds->pid[i] < 0)
+// 		return (ft_free_cmd_items(&cmd_items));
+// 	if (fds->pid[i] == 0)
+// 	{
+// 		if (index_cmd < argc - 2)
+// 			exec_cmd(fds, cmd_items, &(fds->tmp_fd), &(fds->pipefd[1]));
+// 		else if (index_cmd == argc - 2)
+// 			exec_cmd(fds, cmd_items, &(fds->tmp_fd), &(fds->outfile));
+// 	}
+// 	close_pipe_and_new_tmp(argc, fds, cmd_items, index_cmd);
+// 	return (EXIT_SUCCESS);
+// }
 
 // int main (int argc, char **argv, char **envp) 
 // {	
