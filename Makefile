@@ -12,6 +12,7 @@ SRC = pipex_main.c \
 	test_call_exec.c \
 	lst_token.c \
 	minishell.c \
+	redirections.c \
 
 OBJ = ${SRC:.c=.o}
 

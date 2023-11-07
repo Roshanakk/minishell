@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:20:34 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/06 15:07:01 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/07 10:34:25 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ typedef struct s_cmd {
 } t_cmd;
 
 typedef struct s_pipe {
-	__pid_t	pid;
+	__pid_t	pid;	
+	int		infile;
+	int		outfile;
+	
 } t_pipe;
 
 typedef struct s_general {

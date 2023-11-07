@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:46:24 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/06 16:06:42 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:43:12 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,6 @@ int	ft_nb_pipes(t_token *cmdline)
 		tmp = tmp->next;
 	}
 	return (i);
-}
-
-int	redirect_io_files(t_general *general, t_cmd *cmd)
-{
-	//ouvrir les fichiers
-	//s'il y a un infile qui n'existe pas : exit
-	//s'il y a un outfile qui n'existe pas : le creer
-	
 }
 
 int	execute_cmd(t_general *general, t_cmd *cmd)
@@ -129,25 +121,25 @@ int minishell(t_general *general)
     
 }
 
-int main(int argc, char **argv, char **envp)
-{
-	t_general general;
+// int main(int argc, char **argv, char **envp)
+// {
+// 	t_general general;
 
-	general = (t_general){0};
-	minishell(&general);
-	// //PARSING : CREATION DE LA LISTE DE TOKENS
-	// general.cmdline = create_token_list("edouard.txt", REDIR_IN);
-	// insert_at_end(&general.cmdline, "grep", WORD);
-	// insert_at_end(&general.cmdline, "bonjour", WORD);
-	// insert_at_end(&general.cmdline, "|", PIPE);
-	// insert_at_end(&general.cmdline, "cat", WORD);
-	// insert_at_end(&general.cmdline, "outfile", REDIR_OUT);
+// 	general = (t_general){0};
+// 	minishell(&general);
+// 	// //PARSING : CREATION DE LA LISTE DE TOKENS
+// 	// general.cmdline = create_token_list("edouard.txt", REDIR_IN);
+// 	// insert_at_end(&general.cmdline, "grep", WORD);
+// 	// insert_at_end(&general.cmdline, "bonjour", WORD);
+// 	// insert_at_end(&general.cmdline, "|", PIPE);
+// 	// insert_at_end(&general.cmdline, "cat", WORD);
+// 	// insert_at_end(&general.cmdline, "outfile", REDIR_OUT);
 
-	// //CONVERSION EN TABLEAU
-	// convert_token_lst_to_tab(&general, general.cmdline);
+// 	// //CONVERSION EN TABLEAU
+// 	// convert_token_lst_to_tab(&general, general.cmdline);
 
-	// //EXECUTION
-	// execute_cmdline(&general);
-	// printf("%d\n", general.pipeline->pid);
-	return (0);
-}
+// 	// //EXECUTION
+// 	// execute_cmdline(&general);
+// 	// printf("%d\n", general.pipeline->pid);
+// 	return (0);
+// }
