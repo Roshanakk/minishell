@@ -6,7 +6,7 @@
 #    By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/05 11:14:29 by azarraffi         #+#    #+#              #
-#    Updated: 2023/11/06 15:58:25 by rraffi-k         ###   ########.fr        #
+#    Updated: 2023/11/07 16:51:41 by rraffi-k         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,3 +20,5 @@ est-ce que builtin_echo fonctionne avec $VAR qui est NULL ?
 
 est-ce que le parsing verifie si les infile existent ?
 / si les outfile existent ? (et est-ce qu'il cree les outfile non existants ?)
+
+close les fichiers ouverts ? dans redirections.c : si echec de open ou close ou dup?

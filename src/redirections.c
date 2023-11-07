@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:09:58 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/07 15:43:17 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/07 16:51:20 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	safe_close(int fd, t_general *general)
 	return ;
 }
 
-//1 : infile : O_RDONLY
-//2 : outfile : O_CREATE | O_WRONLY | O_TRUNC
+// //1 : infile : O_RDONLY
+// //2 : outfile : O_CREATE | O_WRONLY | O_TRUNC
 int	safe_open(char *file, int flag, t_general *general)
 {
 	int	fd;
@@ -35,6 +35,7 @@ int	safe_open(char *file, int flag, t_general *general)
 		if (fd == -1)
 		{
 			ft_printf("minishell : %s: No such file or directory\n", file);
+			//close les fichiers ouverts ?
 			ft_free_general(general);
 			exit(EXIT_FAILURE);
 		}
@@ -44,6 +45,7 @@ int	safe_open(char *file, int flag, t_general *general)
 		fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 000777);
 		if (fd == -1)
 		{
+			//close les fichiers ouverts ?
 			ft_free_general(general);
 			exit(EXIT_FAILURE);
 		}
@@ -89,10 +91,7 @@ int	open_all_files(t_general *general, char **redir_in, char **redir_out)
 
 int	redirect_io_files(t_general *general, t_pipe *pipeline, t_cmd *cmd)
 {
-	//ouvrir les fichiers
 	open_all_files(general, cmd->redir_in, cmd->redir_out);
-	// ft_printf("%d\n", pipeline->infile);
-	//redirection infile s'il existe
 	if (pipeline->infile != -1)
 	{
 		if (dup2(pipeline->infile, STDIN_FILENO) == -1)
@@ -109,16 +108,11 @@ int	redirect_io_files(t_general *general, t_pipe *pipeline, t_cmd *cmd)
 			exit(EXIT_FAILURE);
 		}
 	}
-	//redirection outfile s'il existe
-
-	
 }
-
 
 // int main(int argc, char **argv, char **envp)
 // {
 // 	t_general general;
-
 // 	general = (t_general){0};
 //  	general.cmdline = create_token_list("word", WORD);
 // 	// insert_at_end(&general.cmdline, "infile2.txt", REDIR_IN);
@@ -126,9 +120,7 @@ int	redirect_io_files(t_general *general, t_pipe *pipeline, t_cmd *cmd)
 // 	// insert_at_end(&general.cmdline, "outfile1", REDIR_OUT);
 // 	// insert_at_end(&general.cmdline, "outfile2", REDIR_OUT);
 // 	// insert_at_end(&general.cmdline, "outfile_wesh", REDIR_OUT);
-
 // 	convert_token_lst_to_tab(&general, general.cmdline);
-	
 // 	open_all_files(&general, general.all_cmds->redir_in, general.all_cmds->redir_out);
 // 	ft_free_general(&general);
 // 	return (0);
