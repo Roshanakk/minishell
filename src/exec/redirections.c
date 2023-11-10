@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:09:58 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/07 16:51:20 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:07:17 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,6 @@ int	open_all_files(t_general *general, char **redir_in, char **redir_out)
 
 	if (!general || !redir_in[0] || !redir_out[0])
 		return (EXIT_FAILURE);
-	//A METTRE AVANT, DANS FONCTION MINISHELL
-	// general->pipeline = malloc(sizeof(t_pipe));
-	// if (!general->pipeline)
-	// 	return (EXIT_FAILURE);
-	
 	i = 0;
 	while (redir_in[i])
 	{

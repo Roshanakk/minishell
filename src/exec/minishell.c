@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:46:24 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/07 16:46:09 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/08 11:05:07 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,38 +55,49 @@ int	execute_cmd(t_general *general, t_cmd *cmd_i)
 	redirect_io_files(general, general->pipeline, cmd_i);
 	//executer builtin si la cmd est un builtin
 	//executer bin si la cmd est un bin
-	// ft_printf("%s\n", cmd_i->cmd[0]);
 	execve("/usr/bin/grep", cmd_i->cmd, NULL);
 	// execve(cmd_i->cmd[0], cmd_i->cmd, NULL);
 	return (EXIT_FAILURE);
 }
 
-// int execute_cmdline(t_general *general, t_cmd *all_cmds, t_pipe *pipeline)
-// {
-// 	t_token *tmp;
-// 	int		i;
-// 	int		nb_of_pipes;
-// 	int		nb_of_children;
-// 	nb_of_pipes = ft_nb_of_pipes(general->cmdline);
-// 	nb_of_children = nb_of_pipes + 1;
-// 	i = 0;
-// 	// while (i < nb_of_children)
-// 	// {
-// 		pipeline->pid = fork();
-// 		if (pipeline->pid < 0)
-// 			return (EXIT_FAILURE);
-// 		else if (pipeline->pid == 0)
-// 			execute_cmd(general, all_cmds + i);
-// 	// 	i++;
-// 	// }
-// }
+/*
+
+PREV_PIPE (TMP_FD) EST INITIALISE EN-DEHORS DU CHILD ?
+
+*/
+
+int execute_cmdline(t_general *general, t_cmd *all_cmds, t_pipe *pipeline)
+{
+	t_token *tmp;
+	int		i;
+	int		nb_of_pipes;
+	int		nb_of_children;
+
+	// nb_of_pipes = ft_nb_of_pipes(general->cmdline);
+	// nb_of_children = nb_of_pipes + 1;
+	// i = 0;
+	// while (i < nb_of_children)
+	// {
+		pipeline->pid = fork();
+		if (pipeline->pid < 0)
+			return (EXIT_FAILURE);
+		else if (pipeline->pid == 0)
+		{
+			
+			ft_printf("yo\n");
+			execute_cmd(general, all_cmds + i);
+		}
+	// 	i++;
+	// }
+	return (EXIT_SUCCESS);
+}
 
 int minishell(t_general *general)
 {
 	//PARSING : CREATION DE LA LISTE DE TOKENS
 	general->cmdline = create_token_list("infile1.txt", REDIR_IN);
 	insert_at_end(&general->cmdline, "grep", WORD);
-	insert_at_end(&general->cmdline, "z", WORD);
+	insert_at_end(&general->cmdline, "s", WORD);
 	insert_at_end(&general->cmdline, "nouveau.txt", REDIR_OUT);
 	// insert_at_end(&general->cmdline, "-la", WORD);
 
@@ -99,20 +110,19 @@ int minishell(t_general *general)
 		return (EXIT_FAILURE);
 	
 	//EXECUTION
-	// execute_cmdline(general, general->all_cmds, general->pipeline);
-	execute_cmd(general, general->all_cmds);
+	execute_cmdline(general, general->all_cmds, general->pipeline);
+	// execute_cmd(general, general->all_cmds);
 	// ft_printf("on est la\n");
 
 	//FREE
 	ft_free_general(general);
-
 }
 
-int main(int argc, char **argv, char **envp)
-{
-	t_general general;
+// int main(int argc, char **argv, char **envp)
+// {
+// 	t_general general;
 
-	general = (t_general){0};
-	minishell(&general);
-	return (0);
-}
+// 	general = (t_general){0};
+// 	minishell(&general);
+// 	return (0);
+// }

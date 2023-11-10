@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:20:34 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/07 15:27:17 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:13:12 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ typedef struct s_pipe {
 	__pid_t	pid;	
 	int		infile;
 	int		outfile;
-	
+	int		pipefd[2];
+	int		prev_pipe;
 } t_pipe;
 
 typedef struct s_general {

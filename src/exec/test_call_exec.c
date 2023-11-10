@@ -6,7 +6,7 @@
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:31:10 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/11/07 14:58:17 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/11/08 11:00:11 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,14 +247,26 @@ int convert_token_lst_to_tab(t_general *general, t_token *cmdline)
 			//AJOUTER ERREUR SI REDIR_IN N'EXISTE PAS
 			if (token->type == REDIR_IN)
 			{
+				token = token->next;
 				general->all_cmds[i].redir_in[l] = token->value;
 				l++;
 			}
 			else if (token->type == REDIR_OUT)
 			{
+				token = token->next;
 				general->all_cmds[i].redir_out[k] = token->value;
 				k++;
 			}
+			// if (token->type == REDIR_IN)
+			// {
+			// 	general->all_cmds[i].redir_in[l] = token->value;
+			// 	l++;
+			// }
+			// else if (token->type == REDIR_OUT)
+			// {
+			// 	general->all_cmds[i].redir_out[k] = token->value;
+			// 	k++;
+			// }
 			else if (token->type == WORD)
 			{
 				general->all_cmds[i].cmd[j] = token->value;
@@ -278,54 +290,54 @@ int convert_token_lst_to_tab(t_general *general, t_token *cmdline)
 }
 
 
-// int main(int argc, char**argv, char **envp)
-// {
-// 	t_general general;
+int main(int argc, char**argv, char **envp)
+{
+	t_general general;
 
-// 	general = (t_general){0};
-//  	general.cmdline = create_token_list("UUUSER", VAR);
-// 	// insert_at_end(&general.cmdline, "OKKK", VAR);
-// 	insert_at_end(&general.cmdline, "infile1", REDIR_IN);
-// 	insert_at_end(&general.cmdline, "infile2", REDIR_IN);
-// 	insert_at_end(&general.cmdline, "infile3", REDIR_IN);
-// 	insert_at_end(&general.cmdline, "echo", WORD);
-// 	insert_at_end(&general.cmdline, "-n", WORD);
-// 	insert_at_end(&general.cmdline, "|", PIPE);
-// 	insert_at_end(&general.cmdline, "bonjour", WORD);
-// 	// insert_at_end(&general.cmdline, "USER", VAR);
-// 	// insert_at_end(&general.cmdline, "|", PIPE);
-// 	insert_at_end(&general.cmdline, "infile4", REDIR_IN);
-// 	insert_at_end(&general.cmdline, "infile5", REDIR_IN);
-// 	insert_at_end(&general.cmdline, "outfile", REDIR_OUT);
-// 	// insert_at_end(&general.cmdline, "echo", WORD);
+	general = (t_general){0};
+ 	general.cmdline = create_token_list("UUUSER", VAR);
+	// insert_at_end(&general.cmdline, "OKKK", VAR);
+	insert_at_end(&general.cmdline, "infile1", REDIR_IN);
+	insert_at_end(&general.cmdline, "infile2", REDIR_IN);
+	insert_at_end(&general.cmdline, "infile3", REDIR_IN);
+	insert_at_end(&general.cmdline, "echo", WORD);
+	insert_at_end(&general.cmdline, "-n", WORD);
+	insert_at_end(&general.cmdline, "|", PIPE);
+	insert_at_end(&general.cmdline, "bonjour", WORD);
+	// insert_at_end(&general.cmdline, "USER", VAR);
+	// insert_at_end(&general.cmdline, "|", PIPE);
+	insert_at_end(&general.cmdline, "infile4", REDIR_IN);
+	insert_at_end(&general.cmdline, "infile5", REDIR_IN);
+	insert_at_end(&general.cmdline, "outfile", REDIR_OUT);
+	// insert_at_end(&general.cmdline, "echo", WORD);
 
 	
-// 	convert_token_lst_to_tab(&general, general.cmdline);
+	convert_token_lst_to_tab(&general, general.cmdline);
 
-// 	int i = 0;
-// 	int j;
-// 	int len;
-// 	t_token *tmp;
-// 	tmp = general.cmdline;
-// 	// while (general.all_cmds[i].cmd[0])
-// 	while (i < ft_nb_of_pipes(general.cmdline) + 1)
-// 	{
-// 		j = 0;
-// 		// len = ft_len_of_cmd(tmp);
-// 		// len = ft_nb_of_redirs_in(tmp);
-// 		// len = ft_nb_of_redirs_out(tmp);
-// 		// while (general.all_cmds[i].cmd[j])
-// 		while (general.all_cmds[i].redir_in[j])
-// 		{
-// 			// printf("cmd : %s\n", general.all_cmds[i].cmd[j]);
-// 			printf("redir_in %d : %s\n", j, general.all_cmds[i].redir_in[j]);
-// 			// printf("cmd : %s\n", general.all_cmds[i].redir_out[j]);
-// 			j++;
-// 			tmp = tmp->next;
-// 		}
-// 		printf("cmd i finie\n");
-// 		i++;
-// 	}
+	int i = 0;
+	int j;
+	int len;
+	t_token *tmp;
+	tmp = general.cmdline;
+	// while (general.all_cmds[i].cmd[0])
+	while (i < ft_nb_of_pipes(general.cmdline) + 1)
+	{
+		j = 0;
+		// len = ft_len_of_cmd(tmp);
+		// len = ft_nb_of_redirs_in(tmp);
+		// len = ft_nb_of_redirs_out(tmp);
+		// while (general.all_cmds[i].cmd[j])
+		while (general.all_cmds[i].redir_in[j])
+		{
+			// printf("cmd : %s\n", general.all_cmds[i].cmd[j]);
+			printf("redir_in %d : %s\n", j, general.all_cmds[i].redir_in[j]);
+			// printf("cmd : %s\n", general.all_cmds[i].redir_out[j]);
+			j++;
+			tmp = tmp->next;
+		}
+		printf("cmd i finie\n");
+		i++;
+	}
 
 // 	ft_free_general(&general);
 
