@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: balacam <balacam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/28 11:24:37 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/12/08 12:00:48 by balacam          ###   ########.fr       */
+/*   Created: 2022/11/23 16:12:38 by rraffi-k          #+#    #+#             */
+/*   Updated: 2023/10/17 11:13:20 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+t_list	*ft_lstnew(void *content)
 {
-	unsigned int	i;
+	t_list	*cell;
 
-	i = 0;
-	while (s1[i] && s2[i] && (s1[i] == s2[i]))
-		i++;
-	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+	cell = malloc(sizeof(t_list));
+	if (!cell)
+		return (NULL);
+	cell->content = content;
+	cell->next = NULL;
+	return (cell);
 }

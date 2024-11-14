@@ -1,23 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: balacam <balacam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/28 11:24:37 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/12/08 12:00:48 by balacam          ###   ########.fr       */
+/*   Created: 2022/11/10 14:49:04 by rraffi-k          #+#    #+#             */
+/*   Updated: 2022/12/01 17:26:04 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+void	ft_bzero(void *s, size_t n)
 {
-	unsigned int	i;
+	unsigned char	*str;
+	size_t			i;
 
 	i = 0;
-	while (s1[i] && s2[i] && (s1[i] == s2[i]))
+	str = s;
+	while (i < n)
+	{
+		str[i] = '\0';
 		i++;
-	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+	}
 }
+
+/*
+int main()
+{
+	int str[] = {1, 2, 3, 4};
+	ft_bzero(str, 3);
+	//bzero(str, 3);
+	printf("%d %d %d %d", str[0], str[1], str[2], str[3]);
+	return (0);
+}
+*/

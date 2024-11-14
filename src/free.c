@@ -5,37 +5,72 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 12:10:38 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/09/22 15:22:42 by rraffi-k         ###   ########.fr       */
+/*   Created: 2023/12/01 14:07:18 by rraffi-k          #+#    #+#             */
+/*   Updated: 2023/12/09 16:27:51 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "minishell.h"
 
-int	close_and_free(t_fds_struct *fds, int flag)
+void	ft_free_env(t_general *general)
 {
-	safe_close(fds->infile, &fds, NULL, 0);
-	safe_close(fds->outfile, &fds, NULL, 0);
-	safe_close(fds->tmp_fd, &fds, NULL, 0);
-	ft_free_fds_struct(&fds); 
-	if (flag == 0)
-		return (EXIT_SUCCESS);
-	else
-		return (EXIT_FAILURE);	
+	if (general->env_tab)
+		ft_free_array(general->env_tab, ft_lstsize(general->env_lst) - 1);
+	if (general->env_lst)
+		ft_lstclear(&(general->env_lst));
 }
 
-int	ft_free_cmd_items(t_cmd_items **cmd_items)
+void	ft_free_all_but_env(t_general *general)
 {
-	ft_free_double_char((*cmd_items)->cmd, ft_cmpt((*cmd_items)->arg, ' '));
-	free((*cmd_items)->arg);
-	free((*cmd_items)->path);
-	free(*cmd_items);
-	return (1);
+	if (general->cmdline)
+	{
+		if (general->all_cmds)
+			ft_free_inside_all_cmds(general);
+		ft_token_lst_clear(&general->cmdline);
+	}
+	if (!access("heredoc.tmp", F_OK))
+		unlink("heredoc.tmp");
+	if (general->pipeline)
+		free(general->pipeline);
+	if (general->all_cmds)
+		free(general->all_cmds);
 }
 
-int	ft_free_fds_struct(t_fds_struct **fds)
+void	ft_free_inside_all_cmds(t_general *general)
 {
-	free((*fds)->pid);
-	free(*fds);
-	return (1);
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < ft_nb_of_pipes(general->cmdline) + 1)
+	{
+		j = 0;
+		while ((general->all_cmds + i)->cmd[j])
+		{
+			free((general->all_cmds + i)->cmd[j]);
+			j++;
+		}
+		free((general->all_cmds + i)->cmd);
+		free((general->all_cmds + i)->redir);
+		free((general->all_cmds + i)->redir_type);
+		i++;
+	}	
+}
+
+void	ft_free_general(t_general *general)
+{
+	if (general->cmdline)
+	{
+		ft_free_inside_all_cmds(general);
+		ft_token_lst_clear(&general->cmdline);
+	}
+	if (general->pipeline)
+		free(general->pipeline);
+	if (general->all_cmds)
+		free(general->all_cmds);
+	if (general->env_tab)
+		ft_free_array(general->env_tab, ft_lstsize(general->env_lst) - 1);
+	if (general->env_lst)
+		ft_lstclear(&(general->env_lst));
+	rl_clear_history();
 }

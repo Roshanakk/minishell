@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: balacam <balacam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/28 11:24:37 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/12/08 12:00:48 by balacam          ###   ########.fr       */
+/*   Created: 2023/12/01 19:09:21 by rraffi-k          #+#    #+#             */
+/*   Updated: 2023/12/06 12:34:55 by rraffi-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	set_error_true(bool *error)
 {
-	unsigned int	i;
+	*error = true;
+	return (0);
+}
 
-	i = 0;
-	while (s1[i] && s2[i] && (s1[i] == s2[i]))
-		i++;
-	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+void	deal_with_minus_sign(int *n, int *i)
+{
+	*n = -(*n);
+	(*i)++;
 }

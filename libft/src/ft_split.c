@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rraffi-k <rraffi-k@student.42.fr>          +#+  +:+       +#+        */
+/*   By: balacam <balacam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:02:16 by rraffi-k          #+#    #+#             */
-/*   Updated: 2023/09/20 11:38:01 by rraffi-k         ###   ########.fr       */
+/*   Updated: 2023/12/08 12:02:02 by balacam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static size_t	ft_len(char const *s, char c, size_t i)
 	return (j - i);
 }
 
-char	**ft_free_double_char(char	**str, size_t	l)
+char	**ft_free_array(char	**str, size_t	l)
 {
 	while (l)
 	{
@@ -72,7 +72,7 @@ static char	**ft_malloc(char const *s, char c)
 
 	str = (char **)malloc(sizeof(char *) * (ft_cmpt(s, c) + 1));
 	if (!str)
-		return (ft_free_double_char(str, 0));
+		return (ft_free_array(str, 0));
 	s1 = (char *)s;
 	i = 0;
 	while (s1[i] && s1[i] == c)
@@ -82,7 +82,7 @@ static char	**ft_malloc(char const *s, char c)
 	{
 		str[l] = (char *)malloc(sizeof(char) * (ft_len(s, c, i) + 1));
 		if (!str[l])
-			return (ft_free_double_char(str, l));
+			return (ft_free_array(str, l));
 		i = i + ft_len(s, c, i);
 		while (s1[i] == c)
 			i++;
